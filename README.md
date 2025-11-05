@@ -28,29 +28,29 @@ Week 2: Steven Savarin
 **1.** As an artisan, I want to create an account and log in securely so that I can access my seller dashboard.
 **Work Items:**
 
--Create sign-up and login forms.
--Set up authentication system (e.g., JWT or NextAuth).
--Implement form validation and error handling.
--Store user credentials securely in the database.
+    -Create sign-up and login forms.
+    -Set up authentication system (e.g., JWT or NextAuth).
+    -Implement form validation and error handling.
+    -Store user credentials securely in the database.
 
 **2.** As a visitor, I want to see an attractive homepage showcasing featured handcraft items, so that I can quickly understand what the website offers.
 **Work Items:**
 
--Design homepage layout with hero banner.
--Implement featured products carousel.
--Add call-to-action buttons (Shop Now, Learn More).
+    -Design homepage layout with hero banner.
+    -Implement featured products carousel.
+    -Add call-to-action buttons (Shop Now, Learn More).
 
 **3.** As a seller, I want to create and edit my profile so I can share my story and showcase my craft.
 **Work Items:**
 
--Build profile page layout and edit form.
--Add fields: profile photo, bio, location, specialty.
--Connect front-end form to database (CRUD operations).
--Display seller info publicly on profile pages.
+    -Build profile page layout and edit form.
+    -Add fields: profile photo, bio, location, specialty.
+    -Connect front-end form to database (CRUD operations).
+    -Display seller info publicly on profile pages.
 
 **4.** As a user, I want to browse products by category, so that I can find items that interest me easily.
 **Work Items:**
 
--Create product categories (e.g., jewelry, textiles, pottery).
--Implement category filtering and sorting.
--Display product thumbnails with name and price.
+    -Create product categories (e.g., jewelry, textiles, pottery).
+    -Implement category filtering and sorting.
+    -Display product thumbnails with name and price.
