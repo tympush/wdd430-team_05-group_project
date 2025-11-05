@@ -19,10 +19,10 @@ Week 2: Steven Savarin
     -Background: #F8F5F1
     -Primary Text: #3E3E3E
     -Secondary Text: #6E6E6E
-**Typography:** Poppins
-**Theme:** Warm Artisan
-**Layout:** Home, Catalog, Reviews, Login
-**Elements:** Header, Hero Image, Footer, Carousel
+**Typography:** Poppins  
+**Theme:** Warm Artisan  
+**Layout:** Home, Catalog, Reviews, Login  
+**Elements:** Header, Hero Image, Footer, Carousel  
 
 ### User Stories and Work Items:
 **1.** As an artisan, I want to create an account and log in securely so that I can access my seller dashboard.
