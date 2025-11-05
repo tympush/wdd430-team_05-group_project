@@ -3,3 +3,4 @@ Team:
 - Tafadazwa Betserai Chingore
 - Efehi Nehikhare
 - Tymur Pushnoy
+- David Chukwudi Igberi
