@@ -1,56 +1,36 @@
-### Team:
-- Steven Savarin
-- Tafadazwa Betserai Chingore
-- Efehi Nehikhare
-- David Chukwudi Igberi
-- Wiselinda Zidor
-- Tymur Pushnoy
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-### Group Leaders:
-Week 1: Tymur Pushnoy
-Week 2: Steven Savarin
+## Getting Started
 
-### Design
-**Color Schema:**
+First, run the development server:
 
-    -Primary: #C67C48
-    -Secondary: #A6BBA1
-    -Accent: #E0B251
-    -Background: #F8F5F1
-    -Primary Text: #3E3E3E
-    -Secondary Text: #6E6E6E
-**Typography:** Poppins  
-**Theme:** Warm Artisan  
-**Layout:** Home, Catalog, Reviews, Login  
-**Elements:** Header, Hero Image, Footer, Carousel  
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-### User Stories and Work Items:
-**1.** As an artisan, I want to create an account and log in securely so that I can access my seller dashboard.
-**Work Items:**
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-    -Create sign-up and login forms.
-    -Set up authentication system (e.g., JWT or NextAuth).
-    -Implement form validation and error handling.
-    -Store user credentials securely in the database.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-**2.** As a visitor, I want to see an attractive homepage showcasing featured handcraft items, so that I can quickly understand what the website offers.
-**Work Items:**
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-    -Design homepage layout with hero banner.
-    -Implement featured products carousel.
-    -Add call-to-action buttons (Shop Now, Learn More).
+## Learn More
 
-**3.** As a seller, I want to create and edit my profile so I can share my story and showcase my craft.
-**Work Items:**
+To learn more about Next.js, take a look at the following resources:
 
-    -Build profile page layout and edit form.
-    -Add fields: profile photo, bio, location, specialty.
-    -Connect front-end form to database (CRUD operations).
-    -Display seller info publicly on profile pages.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-**4.** As a user, I want to browse products by category, so that I can find items that interest me easily.
-**Work Items:**
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-    -Create product categories (e.g., jewelry, textiles, pottery).
-    -Implement category filtering and sorting.
-    -Display product thumbnails with name and price.
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
