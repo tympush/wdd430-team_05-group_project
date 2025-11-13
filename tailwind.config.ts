@@ -8,11 +8,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#FFFBEB",
-        text: "#3F3F46",
-        primary: "#92400E",
-        secondary: "#D97706",
-        muted: "#A16207",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        primaryText: "var(--color-primary-text)",
+        secondaryText: "var(--color-secondary-text)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
@@ -23,4 +25,5 @@ const config: Config = {
 };
 
 export default config;
+
 
