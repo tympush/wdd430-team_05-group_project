@@ -16,22 +16,33 @@ export default function Navbar() {
   return (
     <nav className="w-full backdrop-blur-md shadow-sm fixed top-0 left-0 z-50" style={{ backgroundColor: "rgba(198,124,72,0.85)", borderBottomColor: "var(--color-secondary)" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />
-        <Link href="/" className="text-2xl font-bold" style={{ color: "var(--color-light)" }}>
-          Handcrafted Haven
-        </Link>
+        <div className="flex items-center gap-3">
+          <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />
+          <Link href="/" className="text-2xl font-bold" style={{ color: "var(--color-light)" }}>
+            Handcrafted Haven
+          </Link>
+        </div>
 
         <ul className="hidden md:flex space-x-6 font-medium">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="transition-colors"
+                className="transition-colors pb-1"
                 style={{
-                  color: pathname === link.href ? "var(--color-accent)" : "var(--color-light)",
+                  color: pathname === link.href ? "var(--color-light)" : "var(--color-light)",
+                  borderBottom: pathname === link.href ? "3px solid var(--color-accent)" : "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-accent)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = pathname === link.href ? 'var(--color-accent)' : 'var(--color-light)')}
+                onMouseEnter={(e) => {
+                  if (pathname !== link.href) {
+                    e.currentTarget.style.color = 'var(--color-accent)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (pathname !== link.href) {
+                    e.currentTarget.style.color = 'var(--color-light)';
+                  }
+                }}
               >
                 {link.name}
               </Link>
@@ -39,9 +50,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <button className="px-4 py-2 rounded-lg transition" style={{ backgroundColor: "var(--color-primary)", color: "var(--color-light)" }}>
-          Sign In
-        </button>
+        <button className="px-6 py-2 rounded-lg transition font-medium" style={{ backgroundColor: "var(--color-accent)", color: "var(--color-dark)", border: "2px solid var(--color-accent)" }} onMouseEnter={(e) => {e.currentTarget.style.backgroundColor = "var(--color-accent-2)"; e.currentTarget.style.borderColor = "var(--color-accent-2)";}} onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = "var(--color-accent)"; e.currentTarget.style.borderColor = "var(--color-accent)";}}>Sign In</button>
       </div>
     </nav>
   );

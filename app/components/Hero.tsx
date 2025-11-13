@@ -14,7 +14,7 @@ export default function Hero() {
         </picture>
       </div>
 
-      <section className="w-full flex flex-col items-center justify-center text-center min-h-screen" style={{ backgroundColor: "var(--color-light)" }}>
+      <section className="w-full flex flex-col items-center justify-center text-center py-16" style={{ backgroundColor: "var(--color-light)" }}>
         <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: "var(--color-primary)" }}>
           Discover Handcrafted Treasures
         </h1>
