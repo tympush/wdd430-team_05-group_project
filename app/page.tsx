@@ -1,27 +1,14 @@
-import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div>
-      <main>
-        <header>
-          <img src="" alt="" />
-          <nav>
-            <ul>
-              <li>Home</li>
-              <li>Catalogue</li>
-              <li>Reviews</li>
-              <li>Log In</li>
-            </ul>
-          </nav>
-        </header>
-        <body>
-          
-        </body>
-        <footer>
-
-        </footer>
-      </main>
-    </div>
+    <main>
+      <Navbar />
+      <Hero />
+      <Footer />
+    </main>
   );
 }
+
