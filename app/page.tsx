@@ -25,8 +25,8 @@ export default function Home() {
             <img
               src="/hero-small.png"
               alt="Featured handcrafted items"
-              className="w-full h-56 sm:h-72 md:h-[520px] lg:h-[720px] object-cover"
-              style={{ display: "block" }}
+              className="w-full"
+              style={{ display: "block", height: "auto" }}
             />
           </picture>
         </div>
