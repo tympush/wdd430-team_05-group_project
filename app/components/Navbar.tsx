@@ -14,7 +14,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full backdrop-blur-md shadow-sm fixed top-0 left-0 z-50" style={{ backgroundColor: "rgba(198,124,72,0.85)", borderBottomColor: "var(--color-secondary)" }}>
+    <nav className="w-full backdrop-blur-md shadow-sm fixed top-0 left-0 z-50" style={{ backgroundColor: "rgba(204,96,50,0.8)", borderBottomColor: "var(--color-secondary)" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
           <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />

@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <div>
-      <div className="w-full -mt-16 relative z-0">
+      <div className="w-full -mt-16 relative z-0 mb-8">
         <picture>
           <source media="(min-width:1024px)" srcSet="/hero-large.png" />
           <source media="(min-width:640px)" srcSet="/hero-medium.png" />
