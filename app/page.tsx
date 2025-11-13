@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--color-light)" }}>
       <main className="flex flex-col flex-1">
-        <header className="border-b shadow-sm" style={{ backgroundColor: "var(--color-primary)", borderColor: "var(--color-secondary)" }}>
+        <header className="border-b shadow-sm relative z-20" style={{ backgroundColor: "rgba(198,124,72,0.9)", borderColor: "var(--color-secondary)" }}>
           <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
             <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />
             <nav>
@@ -17,9 +17,23 @@ export default function Home() {
             </nav>
           </div>
         </header>
+
+        <div className="w-full -mt-22 relative z-0">
+          <picture>
+            <source media="(min-width:1024px)" srcSet="/hero-large.png" />
+            <source media="(min-width:640px)" srcSet="/hero-medium.png" />
+            <img
+              src="/hero-small.png"
+              alt="Featured handcrafted items"
+              className="w-full h-56 sm:h-72 md:h-[520px] lg:h-[720px] object-cover"
+              style={{ display: "block" }}
+            />
+          </picture>
+        </div>
+
         <section className="flex-1 px-6 py-12 max-w-7xl mx-auto w-full">
           <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--color-dark)" }}>Welcome to Handcrafted Haven</h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "var(--color-dark)" }}>
+          <p className="text-lg leading-relaxed max-w-3xl" style={{ color: "var(--color-dark)" }}>
             Discover handcrafted treasures from talented artisans around the world. Our marketplace celebrates
             authentic craftsmanship, unique designs, and the stories behind each creation. Browse our collection
             and find the perfect piece that speaks to your style.
