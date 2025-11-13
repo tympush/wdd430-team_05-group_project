@@ -34,14 +34,10 @@ export default function Navbar() {
                   borderBottom: pathname === link.href ? "3px solid var(--color-accent)" : "none",
                 }}
                 onMouseEnter={(e) => {
-                  if (pathname !== link.href) {
-                    e.currentTarget.style.color = 'var(--color-accent)';
-                  }
+                  e.currentTarget.style.color = 'var(--color-accent)';
                 }}
                 onMouseLeave={(e) => {
-                  if (pathname !== link.href) {
-                    e.currentTarget.style.color = 'var(--color-light)';
-                  }
+                  e.currentTarget.style.color = 'var(--color-light)';
                 }}
               >
                 {link.name}
