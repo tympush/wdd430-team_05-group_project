@@ -10,8 +10,19 @@
   --color-dark: #3E3E3E;
 }
 
+/* header/nav default + hover using variables (preferred) */
+nav a {
+  color: var(--color-light);
+  transition: color 160ms ease;
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--color-accent-2);
+}
+
 body {
-  background: var(--color-background);
-  color: var(--color-primary);
+  background: var(--color-light);
+  color: var(--color-dark);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }

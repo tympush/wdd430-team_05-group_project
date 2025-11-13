@@ -9,10 +9,10 @@ export default function Home() {
             <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />
             <nav>
               <ul className="flex gap-8">
-                <li><a href="" className="font-medium transition-colors" style={{ color: "var(--color-light)" }}>Home</a></li>
-                <li><a href="" className="font-medium transition-colors" style={{ color: "var(--color-light)" }}>Catalogue</a></li>
-                <li><a href="" className="font-medium transition-colors" style={{ color: "var(--color-light)" }}>Reviews</a></li>
-                <li><a href="" className="font-medium transition-colors" style={{ color: "var(--color-light)" }}>Log In</a></li>
+                <li><a href="" className="font-medium transition-colors">Home</a></li>
+                <li><a href="" className="font-medium transition-colors">Catalogue</a></li>
+                <li><a href="" className="font-medium transition-colors">Reviews</a></li>
+                <li><a href="" className="font-medium transition-colors">Log In</a></li>
               </ul>
             </nav>
           </div>
