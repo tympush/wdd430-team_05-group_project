@@ -1,14 +1,33 @@
+// app/page.tsx
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Features from "./components/Features";
+import ProductCard from "./components/ProductCard";
 import Footer from "./components/Footer";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main>
+    <>
       <Navbar />
-      <Hero />
-      <Footer />
-    </main>
+      <main className="mt-16"> {/* mt to offset fixed navbar */}
+        <Hero />
+        <Features />
+
+        <section className="py-12 bg-amber-50">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Featured Products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <ProductCard title="Hand-thrown Mug" price={28} />
+              <ProductCard title="Woven Wall Hanging" price={75} />
+              <ProductCard title="Silver Pendant" price={52} />
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+      </main>
+    </>
   );
 }
+
 
