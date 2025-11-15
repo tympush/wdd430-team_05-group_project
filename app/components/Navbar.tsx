@@ -18,43 +18,31 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo (clickable) */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              aria-label="Handcrafted Haven home"
-              className="inline-flex items-center"
-              onClick={() => setOpen(false)}
-            >
-              <Image
-                src="/images/logo-dark.png"
-                alt="Handcrafted Haven logo"
-                width={40}
-                height={40}
-                priority
-              />
-              <span className="sr-only">Handcrafted Haven</span>
-            </Link>
-          </div>
+    <nav className="w-full backdrop-blur-md shadow-sm fixed top-0 left-0 z-50" style={{ backgroundColor: "rgba(204,96,50,0.8)", borderBottomColor: "var(--color-secondary)" }}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-3">
+          <img src="/logo-light.png" alt="Artisan Logo" className="h-12 w-auto" />
+          <Link href="/" className="text-2xl font-bold" style={{ color: "var(--color-light)" }}>
+            Handcrafted Haven
+          </Link>
+        </div>
 
-          {/* Desktop nav */}
-          <nav
-            className="hidden md:flex md:items-center md:gap-6"
-            aria-label="Main navigation"
-          >
-            {links.map((l) => (
+        <ul className="hidden md:flex space-x-6 font-medium">
+          {links.map((link) => (
+            <li key={link.href}>
               <Link
-                key={l.href}
-                href={l.href}
-                className={`text-sm font-medium transition ${
-                  pathname === l.href
-                    ? "text-amber-800"
-                    : "text-gray-700 hover:text-amber-700"
-                }`}
-                onClick={() => setOpen(false)}
+                href={link.href}
+                className="transition-colors pb-1"
+                style={{
+                  color: pathname === link.href ? "var(--color-light)" : "var(--color-light)",
+                  borderBottom: pathname === link.href ? "3px solid var(--color-accent)" : "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--color-accent)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--color-light)';
+                }}
               >
                 {l.name}
               </Link>
@@ -129,15 +117,7 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
 
-          <div className="pt-2 border-t border-gray-100 flex gap-2">
-            <button className="w-1/2 px-3 py-2 rounded-md border border-amber-700 text-amber-700">
-              Log in
-            </button>
-            <button className="w-1/2 px-3 py-2 rounded-md bg-amber-700 text-white">
-              Sell
-            </button>
-          </div>
-        </div>
+        <button className="px-6 py-2 rounded-lg transition font-medium" style={{ backgroundColor: "var(--color-accent)", color: "var(--color-dark)", border: "2px solid var(--color-accent)" }} onMouseEnter={(e) => {e.currentTarget.style.backgroundColor = "var(--color-accent-2)"; e.currentTarget.style.borderColor = "var(--color-accent-2)";}} onMouseLeave={(e) => {e.currentTarget.style.backgroundColor = "var(--color-accent)"; e.currentTarget.style.borderColor = "var(--color-accent)";}}>Sign In</button>
       </div>
     </header>
   );

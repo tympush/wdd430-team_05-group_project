@@ -11,20 +11,29 @@ type Props = {
 
 const ProductCard: React.FC<Props> = ({ title, price, image }) => {
   return (
-    <article className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
-      <div className="relative w-full h-48 sm:h-56 md:h-64 bg-gray-100">
-        {image ? (
-          <Image src={image} alt={title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
-        ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">No image</div> //TODO
-        )}
+    <article className="rounded-2xl shadow-sm border overflow-hidden flex flex-col" style={{ backgroundColor: "var(--color-light)" }}>
+      <div className="relative w-full h-48 sm:h-56 md:h-64" style={{ backgroundColor: "var(--color-light)" }}>
+        <Image
+          src={image ?? "/product-mug.png"}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 100vw, 33vw"
+        />
       </div>
 
       <div className="p-4 flex-1 flex flex-col">
-        <h4 className="font-medium text-gray-800 text-sm sm:text-base">{title}</h4>
+        <h4 className="font-medium text-sm sm:text-base" style={{ color: "var(--color-dark)" }}>{title}</h4>
         <div className="mt-3 flex items-center justify-between">
-          <span className="font-semibold text-gray-800">${price}</span>
-          <button className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">View</button>
+          <span className="font-semibold" style={{ color: "var(--color-dark)" }}>${price}</span>
+          <button
+            className="px-3 py-1 rounded-md text-sm transition"
+            style={{ backgroundColor: "var(--color-primary)", color: "var(--color-light)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.9"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+          >
+            View
+          </button>
         </div>
       </div>
     </article>
