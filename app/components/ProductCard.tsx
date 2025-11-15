@@ -16,7 +16,7 @@ const ProductCard: React.FC<Props> = ({ title, price, image }) => {
         {image ? (
           <Image src={image} alt={title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">No image</div>
+          <div className="flex items-center justify-center h-full text-gray-400">No image</div> //TODO
         )}
       </div>
 
