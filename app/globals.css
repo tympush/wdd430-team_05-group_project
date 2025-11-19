@@ -11,15 +11,7 @@
 }
 
 /* header/nav default + hover using variables (preferred) */
-nav a {
-  color: var(--color-light);
-  transition: color 160ms ease;
-}
-
-nav a:hover,
-nav a:focus {
-  color: var(--color-accent-2);
-}
+/* header/nav default + hover using variables removed to avoid overriding component styles */
 
 body {
   background: var(--color-light);
