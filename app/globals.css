@@ -10,9 +10,6 @@
   --color-dark: #3E3E3E;
 }
 
-/* header/nav default + hover using variables (preferred) */
-/* header/nav default + hover using variables removed to avoid overriding component styles */
-
 body {
   background: var(--color-light);
   color: var(--color-dark);
