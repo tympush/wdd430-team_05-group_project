@@ -2,11 +2,35 @@
 "use client";
 import React, { useState } from "react";
 
-export default function AdminProductForm() {
+type Props = { seller?: string };
+
+const CATEGORIES = [
+  'Home Decor',
+  'Toys & Games',
+  'Accessories',
+  'Jewelry',
+  'Clothing',
+  'Paintings & Drawings',
+  'Prints & Posters',
+  'Calligraphy & Lettering',
+  'Digital Downloads',
+  'Photography',
+  'Kitchen & Dining',
+  'Bath & Beauty',
+  'Pets',
+  'Outdoor & Garden',
+  'Holiday & Seasonal',
+  'Furniture & Woodworking',
+  'Personalized & Custom',
+  'Other',
+];
+
+export default function AdminProductForm({ seller }: Props) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState<number | "">("");
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [status, setStatus] = useState<string | null>(null);
 
   async function uploadFile(fileToUpload: File) {
@@ -33,11 +57,13 @@ export default function AdminProductForm() {
         imageUrl = await uploadFile(file);
       }
 
-      const payload = {
+      const payload: any = {
         title,
         price: typeof price === "number" ? price : Number(price),
         image: imageUrl,
         description,
+        seller: seller ?? null,
+        category,
       };
 
       const res = await fetch("/api/products", {
@@ -107,6 +133,15 @@ export default function AdminProductForm() {
       <label className="block mb-2">
         <span className="text-sm">Image file</span>
         <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} className="mt-1 block w-full" />
+      </label>
+
+      <label className="block mb-2">
+        <span className="text-sm">Category</span>
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className="mt-1 block w-full border rounded px-3 py-2">
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       </label>
 
       <label className="block mb-4">

@@ -9,6 +9,8 @@ type SerializedProduct = {
   price: number;
   image?: string | null;
   description?: string | null;
+  seller?: string | null;
+  category?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -34,6 +36,8 @@ export default async function ShopPage({ searchParams }: any) {
     title: p.title,
     price: typeof p.price === "number" ? p.price : Number(p.price ?? 0),
     image: p.image ?? null,
+    seller: p.seller ?? null,
+    category: p.category ?? null,
     description: p.description ?? null,
     createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : undefined,
     updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : undefined,

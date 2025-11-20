@@ -7,11 +7,9 @@ import FeaturedProducts from "./components/FeaturedProducts";
 export default function Page() {
   return (
     <>
-      <main className="mt-16">
-        <Hero />
-        <Features />
-        <FeaturedProducts />
-      </main>
+      <Hero />
+      <Features />
+      <FeaturedProducts />
     </>
   );
 }

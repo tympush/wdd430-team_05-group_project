@@ -10,11 +10,32 @@ export async function GET(request: Request) {
     const q = (url.searchParams.get("q") ?? "").trim();
     const page = Math.max(1, Number(url.searchParams.get("page") ?? 1));
     const limit = Math.max(1, Number(url.searchParams.get("limit") ?? 12));
+    const seller = url.searchParams.get("seller") ?? undefined;
+    const category = url.searchParams.get("category") ?? undefined;
+    const minPrice = url.searchParams.get("minPrice") ? Number(url.searchParams.get("minPrice")) : undefined;
+    const maxPrice = url.searchParams.get("maxPrice") ? Number(url.searchParams.get("maxPrice")) : undefined;
+    const sort = url.searchParams.get("sort") ?? undefined; // e.g. price_asc, price_desc, seller_asc, category_asc
 
-    const filter = q ? { title: { $regex: q, $options: "i" } } : {};
+    const filter: any = {};
+    if (q) filter.title = { $regex: q, $options: "i" };
+    if (seller) filter.seller = seller;
+    if (category) filter.category = category;
+    if (minPrice != null || maxPrice != null) filter.price = {};
+    if (minPrice != null) filter.price.$gte = minPrice;
+    if (maxPrice != null) filter.price.$lte = maxPrice;
+
     const total = await Product.countDocuments(filter);
+
+    let sortObj: any = { createdAt: -1 };
+    if (sort === "price_asc") sortObj = { price: 1 };
+    else if (sort === "price_desc") sortObj = { price: -1 };
+    else if (sort === "seller_asc") sortObj = { seller: 1 };
+    else if (sort === "seller_desc") sortObj = { seller: -1 };
+    else if (sort === "category_asc") sortObj = { category: 1 };
+    else if (sort === "category_desc") sortObj = { category: -1 };
+
     const products = await Product.find(filter)
-      .sort({ createdAt: -1 })
+      .sort(sortObj)
       .skip((page - 1) * limit)
       .limit(limit)
       .lean();
@@ -24,6 +45,8 @@ export async function GET(request: Request) {
       title: p.title,
       price: p.price,
       image: p.image ?? null,
+      seller: p.seller ?? null,
+      category: p.category ?? null,
       description: p.description ?? null,
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : undefined,
       updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : undefined,
@@ -46,7 +69,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
     }
 
-    const { title, price, image, description } = body;
+    const { title, price, image, description, seller, category } = body;
     if (!title || price == null) {
       return NextResponse.json({ ok: false, error: "title and price are required" }, { status: 400 });
     }
@@ -56,6 +79,8 @@ export async function POST(request: Request) {
       price,
       image,
       description,
+      seller,
+      category,
     });
 
     await product.save();

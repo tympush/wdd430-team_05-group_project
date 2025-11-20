@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function SellPage() {
   const session = await auth();
-  if (!session?.user || !['seller', 'admin'].includes((session.user as any).account_type)) {
+  if (!session?.user || !['seller', 'admin'].includes(session.user.account_type || 'user')) {
     // Not authenticated or not permitted — redirect to login
     redirect('/login');
   }
@@ -23,7 +23,7 @@ export default async function SellPage() {
         <p className="text-sm mb-6" style={{ color: "var(--color-dark)" }}>
           Use this form to add a new product to your shop.
         </p>
-        <AdminProductForm />
+        <AdminProductForm seller={session.user.name ?? (session.user.email ?? '')} />
 
         <div className="mt-8 text-sm" style={{ color: "var(--color-secondary-text)" }}>
           <p>

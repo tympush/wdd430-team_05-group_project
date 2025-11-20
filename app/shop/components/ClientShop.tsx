@@ -11,6 +11,8 @@ type Product = {
   price: number;
   image?: string | null;
   description?: string | null;
+  seller?: string | null;
+  category?: string | null;
 };
 
 type Props = {
@@ -38,6 +40,11 @@ export default function ClientShop({
   const [total, setTotal] = useState<number>(initialTotal ?? 0);
   const [page, setPage] = useState<number>(initialPage ?? 1);
   const [limit] = useState<number>(initialLimit ?? 12);
+  const [sellerFilter, setSellerFilter] = useState<string | undefined>(undefined);
+  const [categoryFilter, setCategoryFilter] = useState<string | undefined>(undefined);
+  const [minPrice, setMinPrice] = useState<number | "">("");
+  const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const [sort, setSort] = useState<string | undefined>(undefined);
 
   const mountedRef = useRef(false);
 
@@ -64,6 +71,11 @@ export default function ClientShop({
         if (debouncedQuery) params.set("q", debouncedQuery);
         if (page && page > 1) params.set("page", String(page));
         if (limit && limit !== 12) params.set("limit", String(limit)); // only include if not default
+        if (sellerFilter) params.set("seller", sellerFilter);
+        if (categoryFilter) params.set("category", categoryFilter);
+        if (minPrice !== "") params.set("minPrice", String(minPrice));
+        if (maxPrice !== "") params.set("maxPrice", String(maxPrice));
+        if (sort) params.set("sort", sort);
 
         const res = await fetch(`/api/products?${params.toString()}`, { signal: controller.signal });
         if (!res.ok) throw new Error("Fetch failed");
@@ -81,12 +93,55 @@ export default function ClientShop({
     return () => controller.abort();
   }, [debouncedQuery, page, limit]);
 
+    // Re-fetch when filters or sort change
+    useEffect(() => {
+      // reset to first page when filters change
+      setPage(1);
+    }, [sellerFilter, categoryFilter, minPrice, maxPrice, sort]);
+
+    // When any of the listed inputs change, fetch (debouncedQuery effect handles server fetch except initial)
+    useEffect(() => {
+      const controller = new AbortController();
+      (async () => {
+        setLoading(true);
+        try {
+          const params = new URLSearchParams();
+          if (debouncedQuery) params.set("q", debouncedQuery);
+          if (page && page > 1) params.set("page", String(page));
+          if (limit && limit !== 12) params.set("limit", String(limit));
+          if (sellerFilter) params.set("seller", sellerFilter);
+          if (categoryFilter) params.set("category", categoryFilter);
+          if (minPrice !== "") params.set("minPrice", String(minPrice));
+          if (maxPrice !== "") params.set("maxPrice", String(maxPrice));
+          if (sort) params.set("sort", sort);
+
+          const res = await fetch(`/api/products?${params.toString()}`, { signal: controller.signal });
+          if (!res.ok) throw new Error("Fetch failed");
+          const json = await res.json();
+          setProducts(json.products ?? []);
+          setTotal(json.total ?? 0);
+        } catch (err) {
+          if ((err as any).name === "AbortError") return;
+          console.error("[ClientShop] fetch error:", err);
+        } finally {
+          setLoading(false);
+        }
+      })();
+
+      return () => controller.abort();
+    }, [debouncedQuery, page, limit, sellerFilter, categoryFilter, minPrice, maxPrice, sort]);
+
   // Update URL: when search is empty and page==1 => /shop ; else include only necessary params
   useEffect(() => {
     const params = new URLSearchParams();
     if (debouncedQuery) params.set("q", debouncedQuery);
     if (page && page > 1) params.set("page", String(page));
     if (limit && limit !== 12) params.set("limit", String(limit));
+    if (sellerFilter) params.set("seller", sellerFilter);
+    if (categoryFilter) params.set("category", categoryFilter);
+    if (minPrice !== "") params.set("minPrice", String(minPrice));
+    if (maxPrice !== "") params.set("maxPrice", String(maxPrice));
+    if (sort) params.set("sort", sort);
 
     const qs = params.toString();
     const href = qs ? `/shop?${qs}` : `/shop`;
@@ -95,11 +150,61 @@ export default function ClientShop({
     router.replace(href);
   }, [debouncedQuery, page, limit, router]);
 
+  // derive seller options from products
+  const sellerOptions = Array.from(new Set(products.map((p) => p.seller).filter(Boolean) as string[]));
+  const categoryOptions = Array.from(new Set(products.map((p) => p.category).filter(Boolean) as string[]));
+
   const pageCount = Math.max(1, Math.ceil(total / limit));
 
   return (
     <section>
       <div className="mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="w-full sm:w-1/3">
+            <label className="block text-sm">Seller</label>
+            <select value={sellerFilter ?? ""} onChange={(e) => setSellerFilter(e.target.value || undefined)} className="mt-1 block w-full border rounded px-3 py-2">
+              <option value="">All sellers</option>
+              {sellerOptions.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="w-full sm:w-1/3">
+            <label className="block text-sm">Category</label>
+            <select value={categoryFilter ?? ""} onChange={(e) => setCategoryFilter(e.target.value || undefined)} className="mt-1 block w-full border rounded px-3 py-2">
+              <option value="">All categories</option>
+              {categoryOptions.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="w-full sm:w-1/3 flex gap-2">
+            <div className="w-1/2">
+              <label className="block text-sm">Min price</label>
+              <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value === "" ? "" : Number(e.target.value))} className="mt-1 block w-full border rounded px-3 py-2" />
+            </div>
+            <div className="w-1/2">
+              <label className="block text-sm">Max price</label>
+              <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value === "" ? "" : Number(e.target.value))} className="mt-1 block w-full border rounded px-3 py-2" />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 flex items-center gap-3">
+          <label className="text-sm">Sort</label>
+          <select value={sort ?? ""} onChange={(e) => setSort(e.target.value || undefined)} className="border rounded px-3 py-2">
+            <option value="">Newest</option>
+            <option value="price_asc">Price: low → high</option>
+            <option value="price_desc">Price: high → low</option>
+            <option value="seller_asc">Seller: A → Z</option>
+            <option value="seller_desc">Seller: Z → A</option>
+            <option value="category_asc">Category: A → Z</option>
+            <option value="category_desc">Category: Z → A</option>
+          </select>
+        </div>
+
         <label htmlFor="shop-search" className="sr-only">Buscar productos</label>
         <div className="relative">
           <input
