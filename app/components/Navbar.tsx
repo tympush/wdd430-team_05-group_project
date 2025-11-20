@@ -49,12 +49,18 @@ const Navbar: React.FC = () => {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`text-sm font-medium transition ${
-                  pathname === l.href
-                    ? "text-amber-800"
-                    : "text-gray-700 hover:text-amber-700"
-                }`}
+                className={`text-sm font-medium transition pb-1`}
+                style={{
+                  color: "var(--color-dark)",
+                  borderBottom: pathname === l.href ? "2px solid var(--color-primary)" : "none",
+                }}
                 onClick={() => setOpen(false)}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--color-primary)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--color-dark)";
+                }}
               >
                 {l.name}
               </Link>
@@ -64,7 +70,12 @@ const Navbar: React.FC = () => {
           {/* Actions + Mobile button */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex gap-3">
-              <button className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm">
+              <button
+                className="px-3 py-1 rounded-md text-sm"
+                style={{ border: "1px solid var(--color-primary)", color: "var(--color-primary)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "var(--color-primary)"; e.currentTarget.style.color = "var(--color-light)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--color-primary)"; }}
+              >
                 Log in
               </button>
 
@@ -126,11 +137,10 @@ const Navbar: React.FC = () => {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                pathname === l.href
-                  ? "bg-amber-50 text-amber-800"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
+              className={`block px-3 py-2 rounded-md text-base font-medium`}
+              style={{ color: "var(--color-dark)", backgroundColor: "transparent" }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "var(--color-primary)"; e.currentTarget.style.color = "var(--color-light)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--color-dark)"; }}
             >
               {l.name}
             </Link>
