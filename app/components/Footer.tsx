@@ -1,3 +1,5 @@
+"use client";
+
 // app/components/Footer.tsx
 import React from "react";
 
