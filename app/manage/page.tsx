@@ -7,7 +7,7 @@ import ManageUsersClient from './ManageUsersClient';
 
 export default async function ManagePage() {
   const session = await auth();
-  if (!session?.user || (session.user as any).account_type !== 'admin') {
+  if (!session?.user || session.user.account_type !== 'admin') {
     redirect('/login');
   }
 
