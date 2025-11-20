@@ -1,4 +1,3 @@
-// app/shop/page.tsx
 import ClientShop from "./components/ClientShop";
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";

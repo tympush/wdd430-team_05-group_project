@@ -1,4 +1,3 @@
-// app/components/AdminProductForm.tsx
 "use client";
 import React, { useState } from "react";
 
@@ -38,7 +37,6 @@ export default function AdminProductForm({ seller }: Props) {
     fd.append("file", fileToUpload);
     setStatus("Uploading image...");
     const res = await fetch("/api/upload", { method: "POST", body: fd });
-    // check status
     if (!res.ok) {
       const text = await safeText(res);
       throw new Error(`Upload failed (${res.status}): ${text}`);
@@ -91,11 +89,9 @@ export default function AdminProductForm({ seller }: Props) {
     }
   }
 
-  // helpers: try parse JSON, otherwise return null
   async function safeJson(res: Response) {
     const ct = res.headers.get("content-type") ?? "";
     if (!ct.includes("application/json")) {
-      // try text for debugging
       const t = await res.text();
       console.warn("Response not JSON:", t);
       return null;

@@ -1,4 +1,3 @@
-// app/api/products/route.ts
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
@@ -7,6 +6,7 @@ export async function GET(request: Request) {
   try {
     await dbConnect();
     const url = new URL(request.url);
+    const distinct = url.searchParams.get("distinct");
     const q = (url.searchParams.get("q") ?? "").trim();
     const page = Math.max(1, Number(url.searchParams.get("page") ?? 1));
     const limit = Math.max(1, Number(url.searchParams.get("limit") ?? 12));
@@ -14,10 +14,17 @@ export async function GET(request: Request) {
     const category = url.searchParams.get("category") ?? undefined;
     const minPrice = url.searchParams.get("minPrice") ? Number(url.searchParams.get("minPrice")) : undefined;
     const maxPrice = url.searchParams.get("maxPrice") ? Number(url.searchParams.get("maxPrice")) : undefined;
-    const sort = url.searchParams.get("sort") ?? undefined; // e.g. price_asc, price_desc, seller_asc, category_asc
+    const sort = url.searchParams.get("sort") ?? undefined; // e.g. price_asc, price_desc, name_asc
+
+    // Return distinct sellers/categories when requested so the client can show all options
+    if (distinct === "true") {
+      const sellers = await Product.distinct("seller");
+      const categories = await Product.distinct("category");
+      return NextResponse.json({ sellers: (sellers || []).filter(Boolean), categories: (categories || []).filter(Boolean) }, { status: 200 });
+    }
 
     const filter: any = {};
-    if (q) filter.title = { $regex: q, $options: "i" };
+    if (q) filter.$or = [{ title: { $regex: q, $options: "i" } }, { description: { $regex: q, $options: "i" } }];
     if (seller) filter.seller = seller;
     if (category) filter.category = category;
     if (minPrice != null || maxPrice != null) filter.price = {};
@@ -29,10 +36,8 @@ export async function GET(request: Request) {
     let sortObj: any = { createdAt: -1 };
     if (sort === "price_asc") sortObj = { price: 1 };
     else if (sort === "price_desc") sortObj = { price: -1 };
-    else if (sort === "seller_asc") sortObj = { seller: 1 };
-    else if (sort === "seller_desc") sortObj = { seller: -1 };
-    else if (sort === "category_asc") sortObj = { category: 1 };
-    else if (sort === "category_desc") sortObj = { category: -1 };
+    else if (sort === "name_asc") sortObj = { title: 1 };
+    else if (sort === "name_desc") sortObj = { title: -1 };
 
     const products = await Product.find(filter)
       .sort(sortObj)
@@ -44,10 +49,10 @@ export async function GET(request: Request) {
       _id: String(p._id),
       title: p.title,
       price: p.price,
-      image: p.image ?? null,
-      seller: p.seller ?? null,
-      category: p.category ?? null,
-      description: p.description ?? null,
+      image: p.image || null,
+      seller: p.seller || null,
+      category: p.category || null,
+      description: p.description || null,
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : undefined,
       updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : undefined,
     }));
@@ -63,26 +68,13 @@ export async function POST(request: Request) {
   try {
     await dbConnect();
 
-    // parse body safely
     const body = await request.json().catch(() => null);
-    if (!body) {
-      return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
-    }
+    if (!body) return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
 
     const { title, price, image, description, seller, category } = body;
-    if (!title || price == null) {
-      return NextResponse.json({ ok: false, error: "title and price are required" }, { status: 400 });
-    }
+    if (!title || price == null) return NextResponse.json({ ok: false, error: "title and price are required" }, { status: 400 });
 
-    const product = new (await import("@/models/Product")).default({
-      title,
-      price,
-      image,
-      description,
-      seller,
-      category,
-    });
-
+    const product = new (await import("@/models/Product")).default({ title, price, image, description, seller, category });
     await product.save();
 
     const sanitized = {

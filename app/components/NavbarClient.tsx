@@ -50,15 +50,17 @@ export default function NavbarClient({ user }: Props) {
                   </button>
                 </form>
               )}
-              {/* Sell: only accessible to seller or admin */}
-              <Link
-                href={user && (user.account_type === 'seller' || user.account_type === 'admin') ? '/sell' : '/login'}
-                className="px-3 py-1 rounded-md bg-amber-700 text-white text-sm hover:bg-amber-800 inline-flex items-center justify-center"
-                onClick={() => setOpen(false)}
-                aria-label="Sell a product"
-              >
-                Sell
-              </Link>
+              {/* Sell: only show to seller or admin */}
+              {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
+                <Link
+                  href="/sell"
+                  className="px-3 py-1 rounded-md bg-amber-700 text-white text-sm hover:bg-amber-800 inline-flex items-center justify-center"
+                  onClick={() => setOpen(false)}
+                  aria-label="Sell a product"
+                >
+                  Sell
+                </Link>
+              )}
 
               {/* Manage: visible only to admins */}
               {user && user.account_type === 'admin' && (
@@ -100,14 +102,16 @@ export default function NavbarClient({ user }: Props) {
               </form>
             )}
 
-            <Link
-              href={user && (user.account_type === 'seller' || user.account_type === 'admin') ? '/sell' : '/login'}
-              onClick={() => setOpen(false)}
-              className="w-1/2 inline-flex items-center justify-center px-3 py-2 rounded-md bg-amber-700 text-white"
-              aria-label="Sell a product"
-            >
-              Sell
-            </Link>
+            {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
+              <Link
+                href="/sell"
+                onClick={() => setOpen(false)}
+                className="w-1/2 inline-flex items-center justify-center px-3 py-2 rounded-md bg-amber-700 text-white"
+                aria-label="Sell a product"
+              >
+                Sell
+              </Link>
+            )}
 
             {user && user.account_type === 'admin' && (
               <Link href="/manage" onClick={() => setOpen(false)} className="w-full mt-2 block px-3 py-2 rounded-md inline-flex items-center justify-center border border-amber-700 text-amber-700">

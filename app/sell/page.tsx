@@ -1,4 +1,3 @@
-// app/sell/page.tsx
 import AdminProductForm from "@/app/components/AdminProductForm";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";

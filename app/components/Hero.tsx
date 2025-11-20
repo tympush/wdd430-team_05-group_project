@@ -1,29 +1,20 @@
-// app/components/Hero.tsx
 import React from "react";
 import Image from "next/image";
 
 const Hero: React.FC = () => {
   return (
-    <section
-      aria-label="Hero"
-      className="w-full relative"
-    >
-      {/* Background image */}
+    <section aria-label="Hero" className="w-full relative">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/hero-bg.jpg')",
-        }}
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
         aria-hidden="true"
       />
 
-      {/* Overlay for contrast */}
       <div aria-hidden="true" className="absolute inset-0 z-10 bg-linear-to-b from-black/30 via-black/10 to-transparent" />
 
       <div className="relative z-20 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-20 md:py-28">
-            {/* Left: text */}
             <div className="text-center md:text-left">
               <p className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-700 mb-4">
                 Handcrafted & Sustainable
@@ -60,7 +51,6 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Right: image collage — hidden on very small screens */}
             <div className="hidden md:grid grid-cols-2 gap-3">
               <div className="rounded-xl overflow-hidden bg-white shadow-sm">
                 <Image src="/images/coffee-cup.webp" alt="Handmade ceramic mug" width={800} height={600} className="w-full h-48 object-cover" />

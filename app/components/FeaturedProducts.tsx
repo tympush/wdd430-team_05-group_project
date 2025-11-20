@@ -1,4 +1,3 @@
-// app/components/FeaturedProducts.tsx
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import ProductCard from "./ProductCard";
