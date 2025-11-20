@@ -229,7 +229,7 @@ export default function ClientShop({
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((p) => (
-              <ProductCard key={p._id} title={p.title} price={p.price} image={p.image ?? null} />
+              <ProductCard key={p._id} title={p.title} price={p.price} image={p.image ?? null} productId={p._id} />
             ))}
           </div>
         )}

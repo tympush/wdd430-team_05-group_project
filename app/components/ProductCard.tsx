@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-type Props = { title: string; price: number; image?: string | null };
+type Props = { title: string; price: number; image?: string | null; productId?: string };
 
-const ProductCard: React.FC<Props> = ({ title, price, image }) => {
+const ProductCard: React.FC<Props> = ({ title, price, image, productId }) => {
   const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
   return (
@@ -21,7 +22,13 @@ const ProductCard: React.FC<Props> = ({ title, price, image }) => {
         <h4 className="font-medium text-gray-800 text-sm sm:text-base">{title}</h4>
         <div className="mt-3 flex items-center justify-between">
           <span className="font-semibold text-gray-800">${price}</span>
-          <button className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">View</button>
+          {productId ? (
+            <Link href={`/product/${productId}`} className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">
+              View
+            </Link>
+          ) : (
+            <button className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">View</button>
+          )}
         </div>
       </div>
     </article>

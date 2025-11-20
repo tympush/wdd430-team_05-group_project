@@ -1,8 +1,11 @@
 import type { NextAuthConfig } from 'next-auth';
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/login',
+  },
+  session: {
+    strategy: 'jwt',
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }: any) {
@@ -16,4 +19,4 @@ export const authConfig = {
     },
   },
   providers: [], // Add providers (e.g. Credentials, Google) below
-} satisfies NextAuthConfig;
+};
