@@ -13,7 +13,7 @@ const ProductCard: React.FC<Props> = ({ title, price, image }) => {
   return (
     <article className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
       {/* aspect-ratio wrapper: 4/3 or 3/2 to look good */}
-      <div className="relative w-full aspect-[4/3] bg-gray-100">
+      <div className="relative w-full aspect-4/3 bg-gray-100">
         {image ? (
           // Prefer next/image for optimized delivery
           <Image

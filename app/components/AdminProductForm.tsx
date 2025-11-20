@@ -12,52 +12,81 @@ export default function AdminProductForm() {
   async function uploadFile(fileToUpload: File) {
     const fd = new FormData();
     fd.append("file", fileToUpload);
-    setStatus("uploading");
+    setStatus("Uploading image...");
     const res = await fetch("/api/upload", { method: "POST", body: fd });
-    const json = await res.json();
-    if (!res.ok || !json?.ok) {
-      throw new Error(json?.error || "Upload failed");
+    // check status
+    if (!res.ok) {
+      const text = await safeText(res);
+      throw new Error(`Upload failed (${res.status}): ${text}`);
     }
+    const json = await safeJson(res);
+    if (!json || !json.url) throw new Error("Upload returned no url");
     return json.url as string;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("saving");
+    setStatus("Saving product...");
     try {
       let imageUrl: string | undefined;
       if (file) {
-        try {
-          imageUrl = await uploadFile(file);
-        } catch (err: any) {
-          setStatus("upload error: " + (err.message || "unknown"));
-          return;
-        }
+        imageUrl = await uploadFile(file);
       }
+
+      const payload = {
+        title,
+        price: typeof price === "number" ? price : Number(price),
+        image: imageUrl,
+        description,
+      };
 
       const res = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title,
-          price: typeof price === "number" ? price : Number(price),
-          image: imageUrl,
-          description,
-        }),
+        body: JSON.stringify(payload),
       });
-      const data = await res.json();
+
       if (!res.ok) {
-        setStatus("create error: " + (data?.error || "unknown"));
-        return;
+        const text = await safeText(res);
+        throw new Error(`Create failed (${res.status}): ${text}`);
       }
 
-      setStatus("saved");
+      const data = await safeJson(res);
+      setStatus("Product saved ✅");
+      // reset form
       setTitle("");
       setPrice("");
       setFile(null);
       setDescription("");
+      console.log("Product created:", data);
     } catch (err: any) {
-      setStatus("error: " + (err.message || "unknown"));
+      console.error(err);
+      setStatus("Error: " + (err.message || "unknown"));
+    }
+  }
+
+  // helpers: try parse JSON, otherwise return null
+  async function safeJson(res: Response) {
+    const ct = res.headers.get("content-type") ?? "";
+    if (!ct.includes("application/json")) {
+      // try text for debugging
+      const t = await res.text();
+      console.warn("Response not JSON:", t);
+      return null;
+    }
+    try {
+      return await res.json();
+    } catch (e) {
+      console.warn("Failed to parse JSON:", e);
+      return null;
+    }
+  }
+
+  async function safeText(res: Response) {
+    try {
+      return await res.text();
+    } catch {
+      return String(res.statusText || "no body");
     }
   }
 
@@ -92,4 +121,5 @@ export default function AdminProductForm() {
     </form>
   );
 }
+
 
