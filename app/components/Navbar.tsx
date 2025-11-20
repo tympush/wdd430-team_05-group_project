@@ -67,9 +67,16 @@ const Navbar: React.FC = () => {
               <button className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm">
                 Log in
               </button>
-              <button className="px-3 py-1 rounded-md bg-amber-700 text-white text-sm hover:bg-amber-800">
+
+              {/* Sell as Link to /sell */}
+              <Link
+                href="/sell"
+                className="px-3 py-1 rounded-md bg-amber-700 text-white text-sm hover:bg-amber-800 inline-flex items-center justify-center"
+                onClick={() => setOpen(false)}
+                aria-label="Sell a product"
+              >
                 Sell
-              </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -133,9 +140,16 @@ const Navbar: React.FC = () => {
             <button className="w-1/2 px-3 py-2 rounded-md border border-amber-700 text-amber-700">
               Log in
             </button>
-            <button className="w-1/2 px-3 py-2 rounded-md bg-amber-700 text-white">
+
+            {/* Sell as Link in mobile menu */}
+            <Link
+              href="/sell"
+              onClick={() => setOpen(false)}
+              className="w-1/2 inline-flex items-center justify-center px-3 py-2 rounded-md bg-amber-700 text-white"
+              aria-label="Sell a product"
+            >
               Sell
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -144,6 +158,7 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+
 
 
 

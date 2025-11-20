@@ -1,29 +1,41 @@
+// app/layout.tsx
+import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
+import React from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
-  description: "A marketplace for handmade treasures and local artisans.",
+  description: "Marketplace for artisans and handmade goods",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className} min-h-screen antialiased bg-amber-50 text-gray-800`}>
-        {children}
+    <html lang="es" className={poppins.variable}>
+      <body className="antialiased bg-color-background text-color-foreground font-sans">
+        {/* Navbar visible on every page */}
+        <Navbar />
+
+        {/* Main: offset to avoid being hidden under fixed navbar */}
+        <main className="mt-16 min-h-screen">
+          {children}
+        </main>
+
+        {/* Footer visible on every page */}
+        <Footer />
       </body>
     </html>
   );
 }
+
 
 
