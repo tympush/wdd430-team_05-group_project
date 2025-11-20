@@ -1,3 +1,14 @@
+import React from 'react';
+import NavbarClient from './NavbarClient';
+import { auth } from '@/auth';
+
+export default async function Navbar() {
+  // auth() returns the current session for this request when used in a server component
+  const session = await auth();
+  const user = session?.user ?? null;
+
+  return <NavbarClient user={user} />;
+}
 // app/components/Navbar.tsx
 "use client";
 
@@ -64,9 +75,13 @@ const Navbar: React.FC = () => {
           {/* Actions + Mobile button */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex gap-3">
-              <button className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm">
+              <Link
+                href="/login"
+                className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm inline-flex items-center justify-center"
+                onClick={() => setOpen(false)}
+              >
                 Log in
-              </button>
+              </Link>
 
               {/* Sell as Link to /sell */}
               <Link
@@ -137,9 +152,13 @@ const Navbar: React.FC = () => {
           ))}
 
           <div className="pt-2 border-t border-gray-100 flex gap-2">
-            <button className="w-1/2 px-3 py-2 rounded-md border border-amber-700 text-amber-700">
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="w-1/2 px-3 py-2 rounded-md inline-flex items-center justify-center border border-amber-700 text-amber-700"
+            >
               Log in
-            </button>
+            </Link>
 
             {/* Sell as Link in mobile menu */}
             <Link
