@@ -1,11 +1,13 @@
-'use client';
+"use client";
 
 import React, { useRef, useState } from 'react';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 
-export default function LoginForm() {
+type Props = { currentUser?: any | null };
+
+export default function LoginForm({ currentUser }: Props) {
   const callbackUrl = '/';
   const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined as any);
   const [isRegister, setIsRegister] = useState(false);
@@ -21,12 +23,13 @@ export default function LoginForm() {
     const username = (fd.get('username') as string) || '';
     const email = (fd.get('email') as string) || '';
     const password = (fd.get('password') as string) || '';
+    const account_type = (fd.get('account_type') as string) || 'user';
 
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, account_type }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -78,6 +81,20 @@ export default function LoginForm() {
             </label>
             <input id="password-register" name="password" type="password" minLength={6} className="block w-full rounded-md border border-[rgba(0,0,0,0.06)] py-[9px] pl-3 text-sm" required />
           </div>
+
+          {/* Hidden account_type unless creator is admin */}
+          {currentUser && currentUser.account_type === 'admin' ? (
+            <div className="mt-4">
+              <label className="mb-2 block text-xs font-medium" htmlFor="account_type">Account type</label>
+              <select id="account_type" name="account_type" className="block w-full rounded-md border py-2 pl-3 text-sm">
+                <option value="user">User</option>
+                <option value="seller">Seller</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          ) : (
+            <input type="hidden" name="account_type" value="user" />
+          )}
 
           <button className="mt-4 w-full py-2 px-4 rounded-md bg-[var(--color-primary)] text-white flex items-center justify-center" type="submit">
             Create account <ArrowRightIcon className="ml-2 h-5 w-5 text-white" />

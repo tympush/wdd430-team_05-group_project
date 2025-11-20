@@ -1,24 +1,5 @@
 // models/Seller.ts
-import mongoose, { Document, Model, Schema } from 'mongoose';
+// Backwards-compatibility alias: export the User model as the old Seller default export.
+import User from './User';
 
-export interface ISeller extends Document {
-  username: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const SellerSchema = new Schema(
-  {
-    username: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-  },
-  { timestamps: true }
-);
-
-// Prevent overwrite during dev/hot reload
-const Seller: Model<ISeller> = (mongoose.models.Seller as Model<ISeller>) || mongoose.model<ISeller>('Seller', SellerSchema);
-
-export default Seller;
+export default User;

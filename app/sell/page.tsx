@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default async function SellPage() {
   const session = await auth();
-  if (!session?.user) {
-    // Not authenticated — redirect to login
+  if (!session?.user || !['seller', 'admin'].includes((session.user as any).account_type)) {
+    // Not authenticated or not permitted — redirect to login
     redirect('/login');
   }
 
