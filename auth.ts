@@ -3,10 +3,10 @@ import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import dbConnect from './lib/mongoose';
 import User from './models/User';
+import bcrypt from 'bcryptjs';
 
-// Credentials provider that validates against the `sellers` collection.
-// NOTE: Passwords are stored/compared in plaintext for now (development only).
-// Replace with bcrypt + proper validation for production.
+// Credentials provider that validates against the `users` collection.
+// Passwords are securely hashed using bcrypt.
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
@@ -33,8 +33,10 @@ export const { auth, signIn, signOut } = NextAuth({
         try {
           const user = await User.findOne({ email }).lean();
           if (!user) return null;
-          // Plaintext compare for dev/testing only
-          if ((user as any).password === password) {
+          
+          // Compare hashed password using bcrypt
+          const isValidPassword = await bcrypt.compare(password, (user as any).password);
+          if (isValidPassword) {
             return { id: (user as any)._id.toString(), name: (user as any).username, email, account_type: (user as any).account_type };
           }
           return null;

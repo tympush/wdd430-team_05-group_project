@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongoose';
 import User from '@/models/User';
 import { auth } from '@/auth';
+import bcrypt from 'bcryptjs';
 
 export async function POST(req: Request) {
   try {
@@ -31,7 +32,10 @@ export async function POST(req: Request) {
       // ignore; default to 'user'
     }
 
-    const user = await User.create({ username, email, password, account_type: finalType });
+    // Hash password before storing
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({ username, email, password: hashedPassword, account_type: finalType });
 
     return NextResponse.json({ ok: true, id: user._id.toString() });
   } catch (err: any) {
