@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const distinct = url.searchParams.get("distinct");
     const q = (url.searchParams.get("q") ?? "").trim();
     const page = Math.max(1, Number(url.searchParams.get("page") ?? 1));
-    const limit = Math.max(1, Number(url.searchParams.get("limit") ?? 12));
+    const limit = Math.max(1, Number(url.searchParams.get("limit") ?? 16));
     const seller = url.searchParams.get("seller") ?? undefined;
     const category = url.searchParams.get("category") ?? undefined;
     const minPrice = url.searchParams.get("minPrice") ? Number(url.searchParams.get("minPrice")) : undefined;
