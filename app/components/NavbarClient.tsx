@@ -14,6 +14,7 @@ export default function NavbarClient({ user }: Props) {
   const links = [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop' },
+    { name: 'Creators', href: '/creators' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -50,6 +51,18 @@ export default function NavbarClient({ user }: Props) {
                   </button>
                 </form>
               )}
+              {/* My Profile: only show to seller or admin */}
+              {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
+                <Link
+                  href="/my-profile"
+                  className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm inline-flex items-center justify-center"
+                  onClick={() => setOpen(false)}
+                  aria-label="My Profile"
+                >
+                  My Profile
+                </Link>
+              )}
+
               {/* Sell: only show to seller or admin */}
               {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
                 <Link
@@ -100,6 +113,17 @@ export default function NavbarClient({ user }: Props) {
               <form action={signOutAction} className="w-1/2">
                 <button type="submit" className="w-full px-3 py-2 rounded-md inline-flex items-center justify-center border border-amber-700 text-amber-700">Sign Out</button>
               </form>
+            )}
+
+            {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
+              <Link
+                href="/my-profile"
+                onClick={() => setOpen(false)}
+                className="w-full px-3 py-2 rounded-md inline-flex items-center justify-center border border-amber-700 text-amber-700"
+                aria-label="My Profile"
+              >
+                My Profile
+              </Link>
             )}
 
             {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
