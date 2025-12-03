@@ -96,58 +96,60 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
         {products.length === 0 ? (
           <p className="text-[#6E6E6E]">You haven't created any products yet.</p>
         ) : (
-          <div className="space-y-2">
-            <label
-              htmlFor="product-none"
-              className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer select-none ${
-                selectedProduct === null ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
-              }`}
-            >
-              <input
-                id="product-none"
-                type="radio"
-                name="product"
-                checked={selectedProduct === null}
-                onChange={() => setSelectedProduct(null)}
-                className="cursor-pointer accent-[#C67C48]"
-              />
-              <span className="text-[#3E3E3E]">No product</span>
-            </label>
+          <div className="max-h-96 overflow-y-auto border border-[#D4C4B0] rounded-lg p-3 bg-white">
+            <div className="space-y-2">
+              <label
+                htmlFor="product-none"
+                className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer select-none ${
+                  selectedProduct === null ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
+                }`}
+              >
+                <input
+                  id="product-none"
+                  type="radio"
+                  name="product"
+                  checked={selectedProduct === null}
+                  onChange={() => setSelectedProduct(null)}
+                  className="cursor-pointer accent-[#C67C48]"
+                />
+                <span className="text-[#3E3E3E]">No product</span>
+              </label>
 
-            {products.map((product) => {
-              const id = `story-product-${product._id}`;
-              return (
-                <label
-                  key={product._id}
-                  htmlFor={id}
-                  className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer select-none ${
-                    selectedProduct === product._id ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
-                  }`}
-                >
-                  <input
-                    id={id}
-                    type="radio"
-                    name="product"
-                    checked={selectedProduct === product._id}
-                    onChange={() => setSelectedProduct(product._id)}
-                    className="mt-1 cursor-pointer accent-[#C67C48]"
-                  />
+              {products.map((product) => {
+                const id = `story-product-${product._id}`;
+                return (
+                  <label
+                    key={product._id}
+                    htmlFor={id}
+                    className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer select-none ${
+                      selectedProduct === product._id ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
+                    }`}
+                  >
+                    <input
+                      id={id}
+                      type="radio"
+                      name="product"
+                      checked={selectedProduct === product._id}
+                      onChange={() => setSelectedProduct(product._id)}
+                      className="mt-1 cursor-pointer accent-[#C67C48]"
+                    />
 
-                  {product.image ? (
-                    <div className="w-20 h-20 relative flex-shrink-0">
-                      <Image src={product.image} alt={product.title} width={80} height={80} className="object-cover rounded" />
+                    {product.image ? (
+                      <div className="w-16 h-16 relative flex-shrink-0 overflow-hidden rounded">
+                        <Image src={product.image} alt={product.title} fill className="object-cover" />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center text-gray-400 text-xs flex-shrink-0">No image</div>
+                    )}
+
+                    <div className="flex-1">
+                      <p className="font-medium">{product.title}</p>
+                      <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
                     </div>
-                  ) : (
-                    <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center text-gray-400">No image</div>
-                  )}
-
-                  <div className="flex-1">
-                    <p className="font-medium">{product.title}</p>
-                    <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
-                  </div>
-                </label>
-              );
-            })}
+                  </label>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>
