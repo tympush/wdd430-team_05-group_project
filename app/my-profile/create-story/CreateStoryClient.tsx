@@ -66,41 +66,41 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
+    <form onSubmit={handleSubmit} className="bg-[#F5EFE6] rounded-lg shadow-md p-6 border border-[#C67C48]">
       {error && <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded">{error}</div>}
 
       <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">Story Title</label>
+        <label className="block text-sm font-medium mb-2 text-[#3E3E3E]">Story Title</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="e.g., How I Started My Craft"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:ring-2 focus:ring-[#E0B251] focus:border-transparent"
         />
       </div>
 
       <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">Story Text</label>
+        <label className="block text-sm font-medium mb-2 text-[#3E3E3E]">Story Text</label>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Share your story here..."
           rows={8}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+          className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:ring-2 focus:ring-[#E0B251] focus:border-transparent"
         />
       </div>
 
       <div className="mb-6">
-        <label className="block text-sm font-medium mb-4">Featured Product (Optional)</label>
+        <label className="block text-sm font-medium mb-4 text-[#3E3E3E]">Featured Product (Optional)</label>
         {products.length === 0 ? (
-          <p className="text-gray-500">You haven't created any products yet.</p>
+          <p className="text-[#6E6E6E]">You haven't created any products yet.</p>
         ) : (
           <div className="space-y-2">
             <label
               htmlFor="product-none"
               className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer select-none ${
-                selectedProduct === null ? 'border-amber-300 bg-amber-50' : 'border-gray-200 hover:border-amber-300'
+                selectedProduct === null ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
               }`}
             >
               <input
@@ -109,9 +109,9 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
                 name="product"
                 checked={selectedProduct === null}
                 onChange={() => setSelectedProduct(null)}
-                className="cursor-pointer"
+                className="cursor-pointer accent-[#C67C48]"
               />
-              <span className="text-gray-600">No product</span>
+              <span className="text-[#3E3E3E]">No product</span>
             </label>
 
             {products.map((product) => {
@@ -121,7 +121,7 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
                   key={product._id}
                   htmlFor={id}
                   className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer select-none ${
-                    selectedProduct === product._id ? 'border-amber-300 bg-amber-50' : 'border-gray-200 hover:border-amber-300'
+                    selectedProduct === product._id ? 'border-[#C67C48] bg-[#FFF8F0]' : 'border-[#D4C4B0] hover:border-[#C67C48]'
                   }`}
                 >
                   <input
@@ -130,7 +130,7 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
                     name="product"
                     checked={selectedProduct === product._id}
                     onChange={() => setSelectedProduct(product._id)}
-                    className="mt-1 cursor-pointer"
+                    className="mt-1 cursor-pointer accent-[#C67C48]"
                   />
 
                   {product.image ? (
@@ -156,14 +156,14 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 bg-amber-700 text-white py-2 rounded-lg hover:bg-amber-800 disabled:bg-gray-400"
+          className="flex-1 bg-[#C67C48] text-white py-2 rounded-lg hover:bg-[#A65829] disabled:bg-gray-400"
         >
           {loading ? 'Creating...' : 'Create Story'}
         </button>
         <button
           type="button"
           onClick={() => window.history.back()}
-          className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-50"
+          className="flex-1 border border-[#C67C48] text-[#C67C48] py-2 rounded-lg hover:bg-[#FFF8F0]"
         >
           Cancel
         </button>

@@ -37,20 +37,16 @@ export default function ContactForm() {
     <>
       {submitted ? (
         <div
-          className="p-6 rounded-lg text-center"
-          style={{
-            backgroundColor: "var(--color-accent-3)",
-            color: "var(--color-dark)",
-          }}
+          className="p-6 rounded-lg text-center bg-[#D4E8D4] text-[#2D5A2D] border border-[#A6BBA1]"
         >
           <h3 className="text-xl font-semibold mb-2">Thank you for your message!</h3>
           <p>We've received your inquiry and will get back to you shortly.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-[#F5EFE6] p-6 rounded-lg border border-[#C67C48]">
           {/* Name Field */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: "var(--color-dark)" }}>
+            <label htmlFor="name" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Full Name *
             </label>
             <input
@@ -60,15 +56,14 @@ export default function ContactForm() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ borderColor: "var(--color-accent)" }}
+              className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C67C48] text-[#3E3E3E] bg-white"
               placeholder="John Doe"
             />
           </div>
 
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: "var(--color-dark)" }}>
+            <label htmlFor="email" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Email Address *
             </label>
             <input
@@ -78,15 +73,14 @@ export default function ContactForm() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ borderColor: "var(--color-accent)" }}
+              className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C67C48] text-[#3E3E3E] bg-white"
               placeholder="john@example.com"
             />
           </div>
 
           {/* Subject Field */}
           <div>
-            <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: "var(--color-dark)" }}>
+            <label htmlFor="subject" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Subject *
             </label>
             <input
@@ -96,15 +90,14 @@ export default function ContactForm() {
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ borderColor: "var(--color-accent)" }}
+              className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C67C48] text-[#3E3E3E] bg-white"
               placeholder="How can we help?"
             />
           </div>
 
           {/* Message Field */}
           <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: "var(--color-dark)" }}>
+            <label htmlFor="message" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Message *
             </label>
             <textarea
@@ -114,8 +107,7 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               rows={6}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ borderColor: "var(--color-accent)" }}
+              className="w-full px-4 py-2 border border-[#C67C48] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C67C48] text-[#3E3E3E] bg-white"
               placeholder="Tell us more about your inquiry..."
             />
           </div>
@@ -123,14 +115,7 @@ export default function ContactForm() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200"
-            style={{ backgroundColor: "var(--color-primary)" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-secondary)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-primary)";
-            }}
+            className="w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200 bg-[#C67C48] hover:bg-[#A65829]"
           >
             Send Message
           </button>

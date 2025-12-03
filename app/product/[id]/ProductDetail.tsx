@@ -30,10 +30,10 @@ export default function ProductDetail({ product }: Props) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#F8F5F1] min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
-        <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
+        <div className="relative w-full h-96 bg-white rounded-lg overflow-hidden border border-[#E0B251]">
           {product.image ? (
             <Image
               src={product.image}
@@ -50,39 +50,39 @@ export default function ProductDetail({ product }: Props) {
 
         {/* Product Info */}
         <div className="flex flex-col">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.title}</h1>
+          <h1 className="text-3xl font-bold text-[#3E3E3E] mb-4">{product.title}</h1>
 
           <div className="mb-6">
-            <span className="text-3xl font-bold text-amber-700">${product.price}</span>
+            <span className="text-3xl font-bold text-[#C67C48]">${product.price}</span>
           </div>
 
           {product.category && (
             <div className="mb-3">
-              <span className="text-sm text-gray-600">Category: </span>
-              <span className="text-sm font-medium text-gray-800">{product.category}</span>
+              <span className="text-sm text-[#6E6E6E]">Category: </span>
+              <span className="text-sm font-medium text-[#3E3E3E]">{product.category}</span>
             </div>
           )}
 
           {product.seller && (
             <div className="mb-6">
-              <span className="text-sm text-gray-600">Seller: </span>
-              <Link href={`/creators/${encodeURIComponent(product.seller)}`} className="text-sm font-medium text-gray-800 hover:underline">
+              <span className="text-sm text-[#6E6E6E]">Seller: </span>
+              <Link href={`/creators/${encodeURIComponent(product.seller)}`} className="text-sm font-medium text-[#3E3E3E] hover:underline">
                 {product.seller}
               </Link>
             </div>
           )}
 
-          <div className="border-t border-gray-300 pt-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Description</h2>
-            <p className="text-gray-700 whitespace-pre-wrap">{product.description}</p>
+          <div className="border-t border-[#C67C48] pt-6">
+            <h2 className="text-lg font-semibold text-[#3E3E3E] mb-3">Description</h2>
+            <p className="text-[#3E3E3E] whitespace-pre-wrap">{product.description}</p>
           </div>
         </div>
       </div>
 
       {/* Reviews Section */}
-      <div className="border-t border-gray-300 pt-8">
+      <div className="border-t border-[#C67C48] pt-8">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Reviews</h2>
+          <h2 className="text-2xl font-bold text-[#3E3E3E] mb-6">Reviews</h2>
           <ReviewForm productId={product._id} onReviewSubmitted={handleReviewSubmitted} />
         </div>
 

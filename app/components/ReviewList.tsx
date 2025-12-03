@@ -45,7 +45,7 @@ export default function ReviewList({ productId, refreshKey }: Props) {
   }, [productId, refreshKey]);
 
   if (loading) {
-    return <div className="text-center py-8 text-gray-600">Loading reviews...</div>;
+    return <div className="text-center py-8 text-[#6E6E6E]">Loading reviews...</div>;
   }
 
   if (error) {
@@ -53,17 +53,17 @@ export default function ReviewList({ productId, refreshKey }: Props) {
   }
 
   if (reviews.length === 0) {
-    return <div className="text-center py-8 text-gray-600">No reviews yet. Be the first to review!</div>;
+    return <div className="text-center py-8 text-[#6E6E6E]">No reviews yet. Be the first to review!</div>;
   }
 
   return (
     <div className="space-y-6">
       {reviews.map((review) => (
-        <div key={review._id} className="bg-white border border-gray-200 rounded-lg p-6">
+        <div key={review._id} className="bg-[#F5EFE6] border border-[#C67C48] rounded-lg p-6">
           <div className="flex items-start justify-between mb-3">
             <div>
-              <p className="font-semibold text-gray-900">{review.author}</p>
-              <p className="text-sm text-gray-600">
+              <p className="font-semibold text-[#3E3E3E]">{review.author}</p>
+              <p className="text-sm text-[#6E6E6E]">
                 {new Date(review.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -75,14 +75,14 @@ export default function ReviewList({ productId, refreshKey }: Props) {
               {Array.from({ length: 5 }).map((_, i) => (
                 <span
                   key={i}
-                  className={`text-lg ${i < review.rating ? "text-amber-400" : "text-gray-300"}`}
+                  className={`text-lg ${i < review.rating ? "text-[#E0B251]" : "text-gray-300"}`}
                 >
                   ★
                 </span>
               ))}
             </div>
           </div>
-          <p className="text-gray-700 whitespace-pre-wrap">{review.text}</p>
+          <p className="text-[#3E3E3E] whitespace-pre-wrap">{review.text}</p>
         </div>
       ))}
     </div>

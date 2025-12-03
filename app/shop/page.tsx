@@ -44,9 +44,9 @@ export default async function ShopPage({ searchParams }: any) {
 
   return (
     <>
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-[#F8F5F1]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold mb-6 mt-20">Shop</h1>
+          <h1 className="text-3xl font-bold mb-6 mt-20 text-[#3E3E3E]">Shop</h1>
           <ClientShop
             initialProducts={sanitized}
             initialTotal={total}

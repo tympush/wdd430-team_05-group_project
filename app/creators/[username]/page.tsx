@@ -44,26 +44,26 @@ export default async function SellerProfilePage({ params }: Props) {
     ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return (
-      <div className="min-h-screen bg-gray-50 pt-24">
+      <div className="min-h-screen bg-[#F8F5F1] pt-24">
         <div className="max-w-6xl mx-auto px-4 py-8">
           {/* Seller Header */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h1 className="text-4xl font-bold mb-2">{username}</h1>
-            <p className="text-gray-600">{seller.email}</p>
-            <Link href="/creators" className="text-amber-700 hover:text-amber-800 mt-4 inline-block">
+          <div className="bg-[#F5EFE6] rounded-lg shadow-md p-6 mb-8 border border-[#C67C48]">
+            <h1 className="text-4xl font-bold mb-2 text-[#3E3E3E]">{username}</h1>
+            <p className="text-[#6E6E6E]">{seller.email}</p>
+            <Link href="/creators" className="text-[#C67C48] hover:text-[#A65829] mt-4 inline-block font-medium">
               ← Back to Creators
             </Link>
           </div>
 
           {/* Collections & Stories */}
           {merged.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <p className="text-gray-500">This creator hasn't shared any collections or stories yet.</p>
+            <div className="bg-[#F5EFE6] rounded-lg shadow-md p-8 text-center border border-[#E0B251]">
+              <p className="text-[#6E6E6E]">This creator hasn't shared any collections or stories yet.</p>
             </div>
           ) : (
             <div className="space-y-6">
               {merged.map((item: any) => (
-                <div key={`${item.type}-${item._id}`} className="bg-white rounded-lg shadow-md p-6">
+                <div key={`${item.type}-${item._id}`} className="bg-[#F5EFE6] rounded-lg shadow-md p-6 border border-[#C67C48]">
                   {item.type === 'collection' ? (
                     <CollectionCard collection={item} />
                   ) : (
@@ -79,7 +79,7 @@ export default async function SellerProfilePage({ params }: Props) {
   } catch (error) {
     console.error('Error loading seller profile:', error);
     return (
-      <div className="min-h-screen bg-gray-50 pt-24">
+      <div className="min-h-screen bg-[#F8F5F1] pt-24">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <p className="text-red-600">Error loading creator profile. Please try again later.</p>
         </div>
@@ -92,17 +92,17 @@ function CollectionCard({ collection }: { collection: any }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
-        <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded">Collection</span>
-        <p className="text-sm text-gray-500">
+        <span className="bg-[#E0B251] text-[#3E3E3E] text-xs font-semibold px-3 py-1 rounded">Collection</span>
+        <p className="text-sm text-[#6E6E6E]">
           {new Date(collection.createdAt).toLocaleDateString()}
         </p>
       </div>
-      <h2 className="text-2xl font-bold mb-4">{collection.name}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-[#3E3E3E]">{collection.name}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {collection.productIds && collection.productIds.length > 0 ? (
           collection.productIds.map((product: any) => (
             <Link key={product._id} href={`/product/${product._id}`}>
-              <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
+              <div className="border border-[#C67C48] rounded-lg overflow-hidden hover:shadow-md transition bg-white">
                 {product.image && (
                   <div className="relative w-full h-40 bg-gray-200">
                     <Image
@@ -114,14 +114,14 @@ function CollectionCard({ collection }: { collection: any }) {
                   </div>
                 )}
                 <div className="p-4">
-                  <h3 className="font-semibold mb-2">{product.title}</h3>
-                  <p className="text-amber-700 font-bold">${product.price.toFixed(2)}</p>
+                  <h3 className="font-semibold mb-2 text-[#3E3E3E]">{product.title}</h3>
+                  <p className="text-[#C67C48] font-bold">${product.price.toFixed(2)}</p>
                 </div>
               </div>
             </Link>
           ))
         ) : (
-          <p className="text-gray-500">No products in this collection.</p>
+          <p className="text-[#6E6E6E]">No products in this collection.</p>
         )}
       </div>
     </div>
@@ -132,16 +132,16 @@ function StoryCard({ story }: { story: any }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
-        <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded">Story</span>
-        <p className="text-sm text-gray-500">
+        <span className="bg-[#A6BBA1] text-white text-xs font-semibold px-3 py-1 rounded">Story</span>
+        <p className="text-sm text-[#6E6E6E]">
           {new Date(story.createdAt).toLocaleDateString()}
         </p>
       </div>
-      <h2 className="text-2xl font-bold mb-4">{story.title}</h2>
-      <p className="text-gray-700 mb-4 whitespace-pre-wrap">{story.text}</p>
+      <h2 className="text-2xl font-bold mb-4 text-[#3E3E3E]">{story.title}</h2>
+      <p className="text-[#3E3E3E] mb-4 whitespace-pre-wrap">{story.text}</p>
       {story.productId && (
         <Link href={`/product/${story.productId._id}`}>
-          <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition inline-block">
+          <div className="border border-[#C67C48] rounded-lg overflow-hidden hover:shadow-md transition inline-block bg-white">
             {story.productId.image && (
               <div className="relative w-40 h-40 bg-gray-200">
                 <Image
@@ -153,8 +153,8 @@ function StoryCard({ story }: { story: any }) {
               </div>
             )}
             <div className="p-4">
-              <h3 className="font-semibold mb-1">{story.productId.title}</h3>
-              <p className="text-amber-700 font-bold">${story.productId.price.toFixed(2)}</p>
+              <h3 className="font-semibold mb-1 text-[#3E3E3E]">{story.productId.title}</h3>
+              <p className="text-[#C67C48] font-bold">${story.productId.price.toFixed(2)}</p>
             </div>
           </div>
         </Link>

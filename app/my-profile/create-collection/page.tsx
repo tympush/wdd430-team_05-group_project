@@ -22,9 +22,9 @@ export default async function CreateCollectionPage() {
     const serializedProducts = JSON.parse(JSON.stringify(products));
 
     return (
-      <div className="min-h-screen bg-gray-50 pt-24">
+      <div className="min-h-screen bg-[#F8F5F1] pt-24">
         <div className="max-w-2xl mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Create Collection</h1>
+          <h1 className="text-3xl font-bold mb-6 text-[#3E3E3E]">Create Collection</h1>
           <CreateCollectionClient products={serializedProducts} sellerName={user.name} />
         </div>
       </div>
@@ -32,7 +32,7 @@ export default async function CreateCollectionPage() {
   } catch (error) {
     console.error('Error fetching products:', error);
     return (
-      <div className="min-h-screen bg-gray-50 pt-24">
+      <div className="min-h-screen bg-[#F8F5F1] pt-24">
         <div className="max-w-2xl mx-auto px-4 py-8">
           <p className="text-red-600">Error loading products. Please try again.</p>
         </div>

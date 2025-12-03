@@ -31,14 +31,14 @@ export default function ReviewForm({ productId, onReviewSubmitted }: Props) {
   }, []);
 
   if (isLoggedIn === null) {
-    return <div className="bg-gray-50 rounded-lg p-6 mb-8 text-gray-600">Loading...</div>;
+    return <div className="bg-[#F5EFE6] rounded-lg p-6 mb-8 text-[#6E6E6E]">Loading...</div>;
   }
 
   if (!isLoggedIn) {
     return (
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-        <p className="text-sm text-gray-700">
-          <Link href="/login" className="text-amber-700 font-semibold hover:underline">
+      <div className="bg-[#FFF8F0] border border-[#E0B251] rounded-lg p-4 mb-6">
+        <p className="text-sm text-[#3E3E3E]">
+          <Link href="/login" className="text-[#C67C48] font-semibold hover:underline">
             Log in
           </Link>
           {" "}to leave a review.
@@ -87,11 +87,11 @@ export default function ReviewForm({ productId, onReviewSubmitted }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-50 rounded-lg p-6 mb-8">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Leave a Review</h3>
+    <form onSubmit={handleSubmit} className="bg-[#F5EFE6] rounded-lg p-6 mb-8 border border-[#C67C48]">
+      <h3 className="text-lg font-semibold text-[#3E3E3E] mb-4">Leave a Review</h3>
 
       <div className="mb-4">
-        <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="rating" className="block text-sm font-medium text-[#3E3E3E] mb-2">
           Rating
         </label>
         <div className="flex gap-2">
@@ -101,19 +101,19 @@ export default function ReviewForm({ productId, onReviewSubmitted }: Props) {
               type="button"
               onClick={() => setRating(star)}
               className={`text-3xl transition ${
-                star <= rating ? "text-amber-400" : "text-gray-300"
-              } hover:text-amber-400`}
+                star <= rating ? "text-[#E0B251]" : "text-gray-300"
+              } hover:text-[#E0B251]`}
               aria-label={`Rate ${star} stars`}
             >
               ★
             </button>
           ))}
         </div>
-        <p className="text-sm text-gray-600 mt-2">{rating} out of 5 stars</p>
+        <p className="text-sm text-[#6E6E6E] mt-2">{rating} out of 5 stars</p>
       </div>
 
       <div className="mb-4">
-        <label htmlFor="review-text" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="review-text" className="block text-sm font-medium text-[#3E3E3E] mb-2">
           Your Review
         </label>
         <textarea
@@ -123,17 +123,17 @@ export default function ReviewForm({ productId, onReviewSubmitted }: Props) {
           placeholder="Share your experience with this product..."
           maxLength={2000}
           rows={5}
-          className="w-full border rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-700 resize-none"
+          className="w-full border border-[#C67C48] rounded-lg px-4 py-2 text-[#3E3E3E] bg-white focus:outline-none focus:ring-2 focus:ring-[#C67C48] resize-none"
         />
-        <p className="text-xs text-gray-500 mt-1">{text.length} / 2000 characters</p>
+        <p className="text-xs text-[#6E6E6E] mt-1">{text.length} / 2000 characters</p>
       </div>
 
       {message && (
         <div
           className={`mb-4 p-3 rounded ${
             message.type === "success"
-              ? "bg-green-50 border border-green-200 text-green-800"
-              : "bg-red-50 border border-red-200 text-red-800"
+              ? "bg-[#D4E8D4] border border-[#A6BBA1] text-[#2D5A2D]"
+              : "bg-[#FDD4D4] border border-[#C67C48] text-[#8B0000]"
           } text-sm`}
         >
           {message.text}
@@ -143,7 +143,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: Props) {
       <button
         type="submit"
         disabled={loading || !text.trim()}
-        className="w-full bg-amber-700 text-white font-semibold py-2 rounded-lg hover:bg-amber-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-[#C67C48] text-white font-semibold py-2 rounded-lg hover:bg-[#A65829] transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? "Submitting..." : "Submit Review"}
       </button>

@@ -22,8 +22,8 @@ export default async function ManagePage() {
   }));
 
   return (
-    <main className="mt-20 max-w-6xl mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-6">Manage Users</h1>
+    <main className="mt-20 max-w-6xl mx-auto px-4 min-h-screen bg-[#F8F5F1] pb-12">
+      <h1 className="text-2xl font-bold mb-6 text-[#3E3E3E]">Manage Users</h1>
       <ManageUsersClient initialUsers={sanitized} />
     </main>
   );
