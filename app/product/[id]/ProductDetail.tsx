@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from 'next/link';
 import Image from "next/image";
 import ReviewForm from "@/app/components/ReviewForm";
 import ReviewList from "@/app/components/ReviewList";
@@ -65,7 +66,9 @@ export default function ProductDetail({ product }: Props) {
           {product.seller && (
             <div className="mb-6">
               <span className="text-sm text-gray-600">Seller: </span>
-              <span className="text-sm font-medium text-gray-800">{product.seller}</span>
+              <Link href={`/creators/${encodeURIComponent(product.seller)}`} className="text-sm font-medium text-gray-800 hover:underline">
+                {product.seller}
+              </Link>
             </div>
           )}
 

@@ -67,7 +67,7 @@ export default function NavbarClient({ user }: Props) {
               {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
                 <Link
                   href="/sell"
-                  className="px-3 py-1 rounded-md bg-amber-700 text-white text-sm hover:bg-amber-800 inline-flex items-center justify-center"
+                  className="px-3 py-1 rounded-md border border-amber-700 text-amber-700 text-sm inline-flex items-center justify-center"
                   onClick={() => setOpen(false)}
                   aria-label="Sell a product"
                 >
@@ -130,7 +130,7 @@ export default function NavbarClient({ user }: Props) {
               <Link
                 href="/sell"
                 onClick={() => setOpen(false)}
-                className="w-1/2 inline-flex items-center justify-center px-3 py-2 rounded-md bg-amber-700 text-white"
+                className="w-1/2 inline-flex items-center justify-center px-3 py-2 rounded-md border border-amber-700 text-amber-700"
                 aria-label="Sell a product"
               >
                 Sell

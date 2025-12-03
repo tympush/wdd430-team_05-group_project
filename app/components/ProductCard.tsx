@@ -8,8 +8,8 @@ type Props = { title: string; price: number; image?: string | null; productId?: 
 const ProductCard: React.FC<Props> = ({ title, price, image, productId }) => {
   const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
-  return (
-    <article className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
+  const card = (
+    <article className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col h-full">
       <div className="relative w-full aspect-4/3 bg-gray-100">
         {image ? (
           <Image src={image} alt={title} fill className="object-cover" sizes={sizes} priority={false} />
@@ -22,17 +22,21 @@ const ProductCard: React.FC<Props> = ({ title, price, image, productId }) => {
         <h4 className="font-medium text-gray-800 text-sm sm:text-base">{title}</h4>
         <div className="mt-3 flex items-center justify-between">
           <span className="font-semibold text-gray-800">${price}</span>
-          {productId ? (
-            <Link href={`/product/${productId}`} className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">
-              View
-            </Link>
-          ) : (
-            <button className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white hover:bg-amber-800 transition">View</button>
-          )}
+          <span className="px-3 py-1 rounded-md text-sm bg-amber-700 text-white">View</span>
         </div>
       </div>
     </article>
   );
+
+  if (productId) {
+    return (
+      <Link href={`/product/${productId}`} className="block h-full">
+        {card}
+      </Link>
+    );
+  }
+
+  return card;
 };
 
 export default ProductCard;

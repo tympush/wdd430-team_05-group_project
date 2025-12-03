@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 type Product = {
   _id: string;
@@ -89,24 +90,39 @@ export default function CreateCollectionClient({ products, sellerName }: Props) 
           <p className="text-gray-500">You haven't created any products yet.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {products.map((product) => (
-              <div
-                key={product._id}
-                className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:border-amber-300 cursor-pointer"
-                onClick={() => handleProductToggle(product._id)}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedProducts.includes(product._id)}
-                  onChange={() => handleProductToggle(product._id)}
-                  className="mt-1 cursor-pointer"
-                />
-                <div className="flex-1">
-                  <p className="font-medium">{product.title}</p>
-                  <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
-                </div>
-              </div>
-            ))}
+            {products.map((product) => {
+              const id = `product-${product._id}`;
+              return (
+                <label
+                  key={product._id}
+                  htmlFor={id}
+                  className={`flex items-start gap-3 p-3 border rounded-lg hover:border-amber-300 cursor-pointer select-none ${
+                    selectedProducts.includes(product._id) ? 'border-amber-300 bg-amber-50' : 'border-gray-200'
+                  }`}
+                >
+                  <input
+                    id={id}
+                    type="checkbox"
+                    checked={selectedProducts.includes(product._id)}
+                    onChange={() => handleProductToggle(product._id)}
+                    className="mt-1 cursor-pointer h-4 w-4"
+                  />
+
+                  {product.image ? (
+                    <div className="w-20 h-20 relative flex-shrink-0">
+                      <Image src={product.image} alt={product.title} width={80} height={80} className="object-cover rounded" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center text-gray-400">No image</div>
+                  )}
+
+                  <div className="flex-1">
+                    <p className="font-medium">{product.title}</p>
+                    <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
+                  </div>
+                </label>
+              );
+            })}
           </div>
         )}
         <p className="text-sm text-gray-500 mt-2">

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 type Product = {
   _id: string;
@@ -96,13 +97,14 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
           <p className="text-gray-500">You haven't created any products yet.</p>
         ) : (
           <div className="space-y-2">
-            <div
-              className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer ${
+            <label
+              htmlFor="product-none"
+              className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer select-none ${
                 selectedProduct === null ? 'border-amber-300 bg-amber-50' : 'border-gray-200 hover:border-amber-300'
               }`}
-              onClick={() => setSelectedProduct(null)}
             >
               <input
+                id="product-none"
                 type="radio"
                 name="product"
                 checked={selectedProduct === null}
@@ -110,29 +112,42 @@ export default function CreateStoryClient({ products, sellerName }: Props) {
                 className="cursor-pointer"
               />
               <span className="text-gray-600">No product</span>
-            </div>
+            </label>
 
-            {products.map((product) => (
-              <div
-                key={product._id}
-                className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer ${
-                  selectedProduct === product._id ? 'border-amber-300 bg-amber-50' : 'border-gray-200 hover:border-amber-300'
-                }`}
-                onClick={() => setSelectedProduct(product._id)}
-              >
-                <input
-                  type="radio"
-                  name="product"
-                  checked={selectedProduct === product._id}
-                  onChange={() => setSelectedProduct(product._id)}
-                  className="mt-1 cursor-pointer"
-                />
-                <div className="flex-1">
-                  <p className="font-medium">{product.title}</p>
-                  <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
-                </div>
-              </div>
-            ))}
+            {products.map((product) => {
+              const id = `story-product-${product._id}`;
+              return (
+                <label
+                  key={product._id}
+                  htmlFor={id}
+                  className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer select-none ${
+                    selectedProduct === product._id ? 'border-amber-300 bg-amber-50' : 'border-gray-200 hover:border-amber-300'
+                  }`}
+                >
+                  <input
+                    id={id}
+                    type="radio"
+                    name="product"
+                    checked={selectedProduct === product._id}
+                    onChange={() => setSelectedProduct(product._id)}
+                    className="mt-1 cursor-pointer"
+                  />
+
+                  {product.image ? (
+                    <div className="w-20 h-20 relative flex-shrink-0">
+                      <Image src={product.image} alt={product.title} width={80} height={80} className="object-cover rounded" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center text-gray-400">No image</div>
+                  )}
+
+                  <div className="flex-1">
+                    <p className="font-medium">{product.title}</p>
+                    <p className="text-sm text-gray-600">${product.price.toFixed(2)}</p>
+                  </div>
+                </label>
+              );
+            })}
           </div>
         )}
       </div>

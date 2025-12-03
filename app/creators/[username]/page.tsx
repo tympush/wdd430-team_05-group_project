@@ -11,7 +11,8 @@ type Props = {
 };
 
 export default async function SellerProfilePage({ params }: Props) {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = decodeURIComponent(rawUsername);
   
   try {
     await dbConnect();
