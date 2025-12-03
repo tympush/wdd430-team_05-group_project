@@ -30,7 +30,7 @@ export default function ProductDetail({ product }: Props) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#F8F5F1] min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#F8F5F1]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative w-full h-96 bg-white rounded-lg overflow-hidden border border-[#E0B251]">

@@ -17,7 +17,7 @@ type SerializedProduct = {
 export default async function ShopPage({ searchParams }: any) {
   const sp = (await searchParams) ?? {};
   const page = Math.max(1, Number(sp?.page ?? 1));
-  const limit = Math.max(1, Number(sp?.limit ?? 12));
+  const limit = Math.max(1, Number(sp?.limit ?? 16));
   const q = (sp?.q ?? "").toString().trim();
 
   await dbConnect();
@@ -44,7 +44,7 @@ export default async function ShopPage({ searchParams }: any) {
 
   return (
     <>
-      <main className="min-h-screen bg-[#F8F5F1]">
+      <main className="bg-[#F8F5F1]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold mb-6 mt-20 text-[#3E3E3E]">Shop</h1>
           <ClientShop

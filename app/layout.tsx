@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
 
         {/* Main: offset to avoid being hidden under fixed navbar */}
-        <main className="mt-16 min-h-screen">
+        <main className="mt-16">
           {children}
         </main>
 

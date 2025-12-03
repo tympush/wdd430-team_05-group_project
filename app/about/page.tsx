@@ -240,7 +240,7 @@ export default function AboutPage() {
               href="/sell"
               className="inline-flex items-center px-6 py-3 rounded-md border-2 border-white text-white font-medium hover:bg-white/10 transition-colors"
             >
-              Become a Seller
+              Sell
             </a>
           </div>
         </div>

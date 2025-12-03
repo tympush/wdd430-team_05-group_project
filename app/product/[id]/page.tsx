@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <main className="mt-16 min-h-screen bg-white">
+    <main className="mt-16 bg-[#F8F5F1]">
       <ProductDetail product={serialized} />
     </main>
   );

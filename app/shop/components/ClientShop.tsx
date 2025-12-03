@@ -38,7 +38,7 @@ export default function ClientShop({
   const [products, setProducts] = useState<Product[]>(initialProducts ?? []);
   const [total, setTotal] = useState<number>(initialTotal ?? 0);
   const [page, setPage] = useState<number>(initialPage ?? 1);
-  const [limit] = useState<number>(initialLimit ?? 12);
+  const [limit] = useState<number>(initialLimit ?? 16);
   const [sellerFilter, setSellerFilter] = useState<string | undefined>(undefined);
   const [categoryFilter, setCategoryFilter] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<number | "">("");
@@ -93,7 +93,7 @@ export default function ClientShop({
         const params = new URLSearchParams();
         if (debouncedQuery) params.set("q", debouncedQuery);
         if (page && page > 1) params.set("page", String(page));
-        if (limit && limit !== 12) params.set("limit", String(limit));
+        if (limit && limit !== 16) params.set("limit", String(limit));
         if (sellerFilter) params.set("seller", sellerFilter);
         if (categoryFilter) params.set("category", categoryFilter);
         if (minPrice !== "") params.set("minPrice", String(minPrice));
@@ -126,7 +126,7 @@ export default function ClientShop({
     const params = new URLSearchParams();
     if (debouncedQuery) params.set("q", debouncedQuery);
     if (page && page > 1) params.set("page", String(page));
-    if (limit && limit !== 12) params.set("limit", String(limit));
+    if (limit && limit !== 16) params.set("limit", String(limit));
     if (sellerFilter) params.set("seller", sellerFilter);
     if (categoryFilter) params.set("category", categoryFilter);
     if (minPrice !== "") params.set("minPrice", String(minPrice));
@@ -219,7 +219,7 @@ export default function ClientShop({
 
       <div>
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
             {Array.from({ length: limit }).map((_, i) => (
               <div key={i} className="animate-pulse bg-white rounded-2xl h-72" />
             ))}
@@ -227,7 +227,7 @@ export default function ClientShop({
         ) : products.length === 0 ? (
           <div className="text-center py-12 text-gray-600">No products found.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
             {products.map((p) => (
               <ProductCard key={p._id} title={p.title} price={p.price} image={p.image ?? null} productId={p._id} />
             ))}
@@ -235,7 +235,7 @@ export default function ClientShop({
         )}
       </div>
 
-      <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="mt-8 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-sm text-gray-600">
           Showing {(page - 1) * limit + 1}–{Math.min(page * limit, total)} of {total}
         </div>
