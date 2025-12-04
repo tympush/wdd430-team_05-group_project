@@ -4,6 +4,5 @@ import { authConfig } from './auth.config';
 export default NextAuth(authConfig).auth;
 
 export const config = {
-  // Run proxy on most app routes (exclude api/_next/static assets)
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };

@@ -23,12 +23,6 @@ export default async function SellPage() {
           Use this form to add a new product to your shop.
         </p>
         <AdminProductForm seller={session.user.name ?? (session.user.email ?? '')} />
-
-        <div className="mt-8 text-sm text-[#6E6E6E]">
-          <p>
-            Note for my team: this form is protected. Only authenticated users can access it.
-          </p>
-        </div>
       </div>
     </main>
   );

@@ -5,8 +5,6 @@ import dbConnect from './lib/mongoose';
 import User from './models/User';
 import bcrypt from 'bcryptjs';
 
-// Credentials provider that validates against the `users` collection.
-// Passwords are securely hashed using bcrypt.
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   providers: [

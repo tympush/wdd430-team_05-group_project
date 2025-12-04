@@ -82,7 +82,6 @@ export default function AdminProductForm({ seller }: Props) {
       setPrice("");
       setFile(null);
       setDescription("");
-      console.log("Product created:", data);
     } catch (err: any) {
       console.error(err);
       setStatus("Error: " + (err.message || "unknown"));

@@ -16,7 +16,6 @@ export async function GET(request: Request) {
     const maxPrice = url.searchParams.get("maxPrice") ? Number(url.searchParams.get("maxPrice")) : undefined;
     const sort = url.searchParams.get("sort") ?? undefined;
 
-    // return distinct sellers/categories when requested so the client can show all options
     if (distinct === "true") {
       const sellers = await Product.distinct("seller");
       const categories = await Product.distinct("category");
@@ -87,7 +86,6 @@ export async function POST(request: Request) {
       updatedAt: product.updatedAt?.toISOString(),
     };
 
-    console.log("[API POST /api/products] created:", sanitized._id);
     return NextResponse.json({ ok: true, product: sanitized }, { status: 201 });
   } catch (err: any) {
     console.error("[API POST /api/products] error:", err);

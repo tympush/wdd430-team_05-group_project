@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import React from "react";
 import { SessionProvider } from "next-auth/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -23,13 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" className={poppins.variable}>
       <body className="antialiased bg-color-background text-color-foreground font-sans">
         <SessionProvider>
-          {/*Navbar visible on every page*/}
           <Navbar />
-
-          {/*Main: offset to avoid being hidden under fixed navbar*/}
           <main className="mt-16">{children}</main>
-
-          {/*Footer visible on every page*/}
           <Footer />
         </SessionProvider>
       </body>

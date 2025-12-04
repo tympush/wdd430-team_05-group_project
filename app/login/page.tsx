@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import LoginForm from '../ui/login-form';
 import { auth } from '@/auth';
 

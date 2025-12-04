@@ -1,16 +1,11 @@
-// lib/mongoose.ts
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
-// During client-side bundling some modules may import this file.
-// Avoid throwing an exception at import time in the browser; only enforce
-// presence of the env var when running on the server (Node).
 if (!MONGODB_URI && typeof window === 'undefined') {
   throw new Error("Please define the MONGODB_URI environment variable in .env.local");
 }
 
-// @ts-ignore global caching for dev to avoid multiple connections
 let cached = (global as any).mongoose;
 
 if (!cached) {

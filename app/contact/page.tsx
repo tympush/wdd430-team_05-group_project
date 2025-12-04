@@ -1,11 +1,9 @@
-import React from "react";
 import ContactForm from "./ContactForm";
 
 export default function ContactPage() {
   return (
     <>
       <main className="bg-[#F8F5F1]">
-        {/*Hero Section*/}
         <section
           className="py-16 text-center bg-[#F8F5F1]"
         >
@@ -24,11 +22,9 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/*Contact Form & Info Section*/}
         <section className="py-16 bg-[#F8F5F1]">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {/*Contact Information*/}
               <div className="md:col-span-1">
                 <h2
                   className="text-2xl font-semibold mb-8 text-[#C67C48]"
@@ -37,7 +33,6 @@ export default function ContactPage() {
                 </h2>
 
                 <div className="space-y-8">
-                  {/*Email*/}
                   <div>
                     <h3
                       className="font-semibold mb-2 text-[#3E3E3E]"
@@ -52,7 +47,6 @@ export default function ContactPage() {
                     </a>
                   </div>
 
-                  {/*Phone*/}
                   <div>
                     <h3
                       className="font-semibold mb-2 text-[#3E3E3E]"
@@ -67,7 +61,6 @@ export default function ContactPage() {
                     </a>
                   </div>
 
-                  {/*Address*/}
                   <div>
                     <h3
                       className="font-semibold mb-2 text-[#3E3E3E]"
@@ -83,7 +76,6 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  {/*Business Hours*/}
                   <div>
                     <h3
                       className="font-semibold mb-2 text-[#3E3E3E]"
@@ -101,7 +93,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/*Contact Form*/}
               <div className="md:col-span-2">
                 <h2
                   className="text-2xl font-semibold mb-8 text-[#C67C48]"
