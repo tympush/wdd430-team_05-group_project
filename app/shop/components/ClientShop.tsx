@@ -12,6 +12,8 @@ type Product = {
   description?: string | null;
   seller?: string | null;
   category?: string | null;
+  avgRating?: number;
+  reviewCount?: number;
 };
 
 type Props = {
@@ -39,11 +41,40 @@ export default function ClientShop({
   const [total, setTotal] = useState<number>(initialTotal ?? 0);
   const [page, setPage] = useState<number>(initialPage ?? 1);
   const [limit] = useState<number>(initialLimit ?? 16);
-  const [sellerFilter, setSellerFilter] = useState<string | undefined>(undefined);
-  const [categoryFilter, setCategoryFilter] = useState<string | undefined>(undefined);
-  const [minPrice, setMinPrice] = useState<number | "">("");
-  const [maxPrice, setMaxPrice] = useState<number | "">("");
-  const [sort, setSort] = useState<string | undefined>(undefined);
+  
+  // Initialize filters from URL on mount
+  const [sellerFilter, setSellerFilter] = useState<string | undefined>(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('seller') || undefined;
+    }
+    return undefined;
+  });
+  const [categoryFilter, setCategoryFilter] = useState<string | undefined>(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('category') || undefined;
+    }
+    return undefined;
+  });
+  const [minPrice, setMinPrice] = useState<number | "">(() => {
+    if (typeof window !== 'undefined') {
+      const val = new URLSearchParams(window.location.search).get('minPrice');
+      return val ? Number(val) : "";
+    }
+    return "";
+  });
+  const [maxPrice, setMaxPrice] = useState<number | "">(() => {
+    if (typeof window !== 'undefined') {
+      const val = new URLSearchParams(window.location.search).get('maxPrice');
+      return val ? Number(val) : "";
+    }
+    return "";
+  });
+  const [sort, setSort] = useState<string | undefined>(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('sort') || undefined;
+    }
+    return undefined;
+  });
 
   const [sellerOptions, setSellerOptions] = useState<string[]>([]);
   const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
@@ -117,7 +148,12 @@ export default function ClientShop({
   }, [debouncedQuery, page, limit, sellerFilter, categoryFilter, minPrice, maxPrice, sort]);
 
   // Reset to first page when filters change
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     setPage(1);
   }, [sellerFilter, categoryFilter, minPrice, maxPrice, sort]);
 

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import Review from "@/models/Review";
+import mongoose from "mongoose";
 
 export async function GET(request: Request) {
   try {
@@ -49,8 +50,13 @@ export async function GET(request: Request) {
     const productIds = (products as any[]).map((p) => p._id);
     let ratingsMap: Record<string, { avgRating: number; reviewCount: number }> = {};
     if (productIds.length) {
+      // Ensure ObjectIds are properly converted for aggregation
+      const objectIds = productIds.map((id) => 
+        typeof id === 'string' ? new mongoose.Types.ObjectId(id) : id
+      );
+      
       const agg = await Review.aggregate([
-        { $match: { productId: { $in: productIds } } },
+        { $match: { productId: { $in: objectIds } } },
         {
           $group: {
             _id: "$productId",

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Review = {
   _id: string;
@@ -17,10 +18,18 @@ type Props = {
 };
 
 export default function ReviewList({ productId, refreshKey }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
+  
+  // Initialize page from URL if present
+  const [page, setPage] = useState(() => {
+    const urlPage = searchParams.get('reviewPage');
+    return urlPage ? Math.max(1, Number(urlPage)) : 1;
+  });
   const [total, setTotal] = useState(0);
   const limit = 3;
 
@@ -47,6 +56,18 @@ export default function ReviewList({ productId, refreshKey }: Props) {
 
     fetchReviews();
   }, [productId, refreshKey, page]);
+
+  // Update URL when page changes
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (page > 1) {
+      params.set('reviewPage', String(page));
+    } else {
+      params.delete('reviewPage');
+    }
+    const newUrl = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+    router.replace(newUrl, { scroll: false });
+  }, [page, router]);
 
   if (loading) {
     return <div className="text-center py-8 text-[#6E6E6E]">Loading reviews...</div>;
