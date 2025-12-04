@@ -41,7 +41,6 @@ export default function BuyClient({ product, user }: Props) {
       <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
         <h2 className="text-xl font-semibold mb-2">Thank you for your purchase!</h2>
         <p className="mb-2">Order number: <span className="font-mono">{orderNumber}</span></p>
-        <p className="text-sm text-gray-600">This confirmation will remain until you leave this page.</p>
       </div>
     );
   }
