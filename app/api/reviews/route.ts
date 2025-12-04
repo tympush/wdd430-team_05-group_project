@@ -9,13 +9,20 @@ export async function GET(request: Request) {
     await dbConnect();
     const url = new URL(request.url);
     const productId = url.searchParams.get("productId");
+    const page = Math.max(1, Number(url.searchParams.get("page") ?? 1));
+    const limit = Math.max(1, Number(url.searchParams.get("limit") ?? 3));
 
     if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
       return NextResponse.json({ error: "Invalid product ID" }, { status: 400 });
     }
 
-    const reviews = await Review.find({ productId: new mongoose.Types.ObjectId(productId) })
+    const filter = { productId: new mongoose.Types.ObjectId(productId) };
+    const total = await Review.countDocuments(filter);
+
+    const reviews = await Review.find(filter)
       .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
       .lean();
 
     const serialized = reviews.map((r) => ({
@@ -27,7 +34,7 @@ export async function GET(request: Request) {
       createdAt: r.createdAt?.toISOString() || new Date().toISOString(),
     }));
 
-    return NextResponse.json({ reviews: serialized });
+    return NextResponse.json({ reviews: serialized, total, page, limit });
   } catch (err) {
     console.error("[GET /api/reviews] error:", err);
     return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });

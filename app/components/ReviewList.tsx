@@ -20,19 +20,23 @@ export default function ReviewList({ productId, refreshKey }: Props) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const limit = 3;
 
   useEffect(() => {
     const fetchReviews = async () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`/api/reviews?productId=${productId}`);
+        const res = await fetch(`/api/reviews?productId=${productId}&page=${page}&limit=${limit}`);
         if (!res.ok) {
           setError("Failed to load reviews.");
           return;
         }
         const data = await res.json();
         setReviews(data.reviews || []);
+        setTotal(data.total || 0);
       } catch (err) {
         console.error("Error loading reviews:", err);
         setError("An error occurred while loading reviews.");
@@ -42,7 +46,7 @@ export default function ReviewList({ productId, refreshKey }: Props) {
     };
 
     fetchReviews();
-  }, [productId, refreshKey]);
+  }, [productId, refreshKey, page]);
 
   if (loading) {
     return <div className="text-center py-8 text-[#6E6E6E]">Loading reviews...</div>;
@@ -55,6 +59,8 @@ export default function ReviewList({ productId, refreshKey }: Props) {
   if (reviews.length === 0) {
     return <div className="text-center py-8 text-[#6E6E6E]">No reviews yet. Be the first to review!</div>;
   }
+
+  const pageCount = Math.max(1, Math.ceil(total / limit));
 
   return (
     <div className="space-y-6">
@@ -85,6 +91,50 @@ export default function ReviewList({ productId, refreshKey }: Props) {
           <p className="text-[#3E3E3E] whitespace-pre-wrap">{review.text}</p>
         </div>
       ))}
+
+      {pageCount > 1 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+          <div className="text-sm text-gray-600">
+            Showing {(page - 1) * limit + 1}–{Math.min(page * limit, total)} of {total} reviews
+          </div>
+
+          <nav aria-label="Review pagination" className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              className="px-3 py-1 rounded border disabled:opacity-50 bg-white hover:bg-gray-50 disabled:hover:bg-white transition"
+              aria-label="Previous page"
+            >
+              ← Prev
+            </button>
+
+            <div className="inline-flex items-center gap-2">
+              <span className="text-sm hidden sm:inline">Page</span>
+              <select
+                value={page}
+                onChange={(e) => setPage(Number(e.target.value))}
+                className="ml-2 border rounded px-2 py-1 bg-white"
+                aria-label="Select page"
+              >
+                {Array.from({ length: pageCount }).map((_, i) => (
+                  <option key={i} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+              disabled={page >= pageCount}
+              className="px-3 py-1 rounded border disabled:opacity-50 bg-white hover:bg-gray-50 disabled:hover:bg-white transition"
+              aria-label="Next page"
+            >
+              Next →
+            </button>
+          </nav>
+        </div>
+      )}
     </div>
   );
 }
