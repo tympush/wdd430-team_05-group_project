@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs';
 
 // Credentials provider that validates against the `users` collection.
 // Passwords are securely hashed using bcrypt.
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
