@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import ProductCard from "./ProductCard";
+import Review from "@/models/Review";
 
 export default async function FeaturedProducts({ limit = 6 }: { limit?: number }) {
   await dbConnect();
@@ -9,11 +10,25 @@ export default async function FeaturedProducts({ limit = 6 }: { limit?: number }
     .limit(limit)
     .lean();
 
+  const productIds = products.map((p) => p._id);
+  let ratingsMap: Record<string, { avgRating: number; reviewCount: number }> = {};
+  if (productIds.length) {
+    const agg = await Review.aggregate([
+      { $match: { productId: { $in: productIds } } },
+      { $group: { _id: "$productId", avgRating: { $avg: "$rating" }, reviewCount: { $sum: 1 } } },
+    ]);
+    ratingsMap = Object.fromEntries(
+      agg.map((r: any) => [String(r._id), { avgRating: Number(r.avgRating) || 0, reviewCount: Number(r.reviewCount) || 0 }])
+    );
+  }
+
   const serialized = products.map((p) => ({
     _id: p._id?.toString() || "",
     title: p.title || "",
     price: p.price || 0,
     image: p.image || null,
+    avgRating: ratingsMap[String(p._id)]?.avgRating ?? 0,
+    reviewCount: ratingsMap[String(p._id)]?.reviewCount ?? 0,
   }));
 
   return (
@@ -25,7 +40,7 @@ export default async function FeaturedProducts({ limit = 6 }: { limit?: number }
             <p className="text-gray-600">No products yet — add one to see it here.</p>
           ) : (
             serialized.map((p) => (
-              <ProductCard key={p._id} title={p.title} price={p.price} image={p.image ?? null} productId={p._id} />
+              <ProductCard key={p._id} title={p.title} price={p.price} image={p.image ?? null} productId={p._id} avgRating={p.avgRating} reviewCount={p.reviewCount} />
             ))
           )}
         </div>

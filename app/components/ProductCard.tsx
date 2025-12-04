@@ -2,9 +2,26 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = { title: string; price: number; image?: string | null; productId?: string };
+type Props = { title: string; price: number; image?: string | null; productId?: string; avgRating?: number; reviewCount?: number };
 
-const ProductCard: React.FC<Props> = ({ title, price, image, productId }) => {
+function RatingStars({ rating, count }: { rating?: number; count?: number }) {
+  const r = Math.max(0, Math.min(5, Number(rating ?? 0)));
+  const full = Math.floor(r);
+  const half = r - full >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
+  const stars: string[] = [];
+  for (let i = 0; i < full; i++) stars.push("★");
+  if (half) stars.push("☆");
+  for (let i = 0; i < empty; i++) stars.push("✩");
+  return (
+    <div className="flex items-center gap-2 text-amber-700 mt-1" aria-label={`Average rating ${r.toFixed(1)} out of 5`}>
+      <span className="tracking-tight">{stars.join(" ")}</span>
+      <span className="text-xs text-gray-600">{r.toFixed(1)}{typeof count === "number" ? ` (${count})` : ""}</span>
+    </div>
+  );
+}
+
+const ProductCard: React.FC<Props> = ({ title, price, image, productId, avgRating = 0, reviewCount = 0 }) => {
   const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
   const card = (
@@ -19,6 +36,7 @@ const ProductCard: React.FC<Props> = ({ title, price, image, productId }) => {
 
       <div className="p-4 flex-1 flex flex-col justify-between">
         <h4 className="font-medium text-[#3E3E3E] text-sm sm:text-base">{title}</h4>
+        <RatingStars rating={avgRating} count={reviewCount} />
         <div className="mt-3 flex items-center justify-between">
           <span className="font-semibold text-[#C67C48]">${price}</span>
           <span className="px-3 py-1 rounded-md text-sm bg-[#C67C48] text-white hover:bg-[#A65829] transition-colors duration-200">View</span>

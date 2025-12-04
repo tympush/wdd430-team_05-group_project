@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
+import Review from "@/models/Review";
 
 export async function GET(request: Request) {
   try {
@@ -44,6 +45,25 @@ export async function GET(request: Request) {
       .limit(limit)
       .lean();
 
+    // Compute average ratings for the returned products
+    const productIds = (products as any[]).map((p) => p._id);
+    let ratingsMap: Record<string, { avgRating: number; reviewCount: number }> = {};
+    if (productIds.length) {
+      const agg = await Review.aggregate([
+        { $match: { productId: { $in: productIds } } },
+        {
+          $group: {
+            _id: "$productId",
+            avgRating: { $avg: "$rating" },
+            reviewCount: { $sum: 1 },
+          },
+        },
+      ]);
+      ratingsMap = Object.fromEntries(
+        agg.map((r: any) => [String(r._id), { avgRating: Number(r.avgRating) || 0, reviewCount: Number(r.reviewCount) || 0 }])
+      );
+    }
+
     const sanitized = (products as any[]).map((p) => ({
       _id: String(p._id),
       title: p.title,
@@ -54,6 +74,8 @@ export async function GET(request: Request) {
       description: p.description || null,
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : undefined,
       updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : undefined,
+      avgRating: ratingsMap[String(p._id)]?.avgRating ?? 0,
+      reviewCount: ratingsMap[String(p._id)]?.reviewCount ?? 0,
     }));
 
     return NextResponse.json({ products: sanitized, total, page, limit }, { status: 200 });

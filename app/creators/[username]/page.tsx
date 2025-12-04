@@ -2,6 +2,7 @@ import dbConnect from '@/lib/mongoose';
 import User from '@/models/User';
 import Collection from '@/models/Collection';
 import Story from '@/models/Story';
+import Review from '@/models/Review';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -9,6 +10,24 @@ import { notFound } from 'next/navigation';
 type Props = {
   params: Promise<{ username: string }>;
 };
+
+function Stars({ id, ratingsMap, small = false }: { id: string; ratingsMap: Record<string, { avgRating: number; reviewCount: number }>; small?: boolean }) {
+  const r = ratingsMap[String(id)]?.avgRating ?? 0;
+  const c = ratingsMap[String(id)]?.reviewCount ?? 0;
+  const full = Math.floor(Math.max(0, Math.min(5, r)));
+  const half = r - full >= 0.5;
+  const empty = 5 - full - (half ? 1 : 0);
+  const stars: string[] = [];
+  for (let i = 0; i < full; i++) stars.push('★');
+  if (half) stars.push('☆');
+  for (let i = 0; i < empty; i++) stars.push('✩');
+  return (
+    <div className={`flex items-center gap-1 text-amber-700 ${small ? 'mt-1' : 'mt-1'}`}>
+      <span className={`${small ? 'text-[10px]' : 'text-xs'} leading-none`}>{stars.join(' ')}</span>
+      <span className={`${small ? 'text-[10px]' : 'text-xs'} text-gray-600`}>{r.toFixed(1)}{c ? ` (${c})` : ''}</span>
+    </div>
+  );
+}
 
 export default async function SellerProfilePage({ params }: Props) {
   const { username: rawUsername } = await params;
@@ -36,6 +55,30 @@ export default async function SellerProfilePage({ params }: Props) {
 
     const serializedCollections = JSON.parse(JSON.stringify(collections));
     const serializedStories = JSON.parse(JSON.stringify(stories));
+
+    // Collect productIds to compute ratings
+    const productIds: string[] = [];
+    for (const c of serializedCollections) {
+      for (const p of c.productIds ?? []) {
+        if (p?._id) productIds.push(p._id as string);
+      }
+    }
+    for (const s of serializedStories) {
+      if (s?.productId?._id) productIds.push(s.productId._id as string);
+    }
+
+    let ratingsMap: Record<string, { avgRating: number; reviewCount: number }> = {};
+    if (productIds.length) {
+      const mongoose = await import('mongoose');
+      const ids = productIds.map((id) => new mongoose.default.Types.ObjectId(id));
+      const agg = await Review.aggregate([
+        { $match: { productId: { $in: ids } } },
+        { $group: { _id: '$productId', avgRating: { $avg: '$rating' }, reviewCount: { $sum: 1 } } },
+      ]);
+      ratingsMap = Object.fromEntries(
+        agg.map((r: any) => [String(r._id), { avgRating: Number(r.avgRating) || 0, reviewCount: Number(r.reviewCount) || 0 }])
+      );
+    }
 
     // Merge and sort by date (newest first)
     const merged = [
@@ -65,9 +108,9 @@ export default async function SellerProfilePage({ params }: Props) {
               {merged.map((item: any) => (
                 <div key={`${item.type}-${item._id}`} className="bg-[#F5EFE6] rounded-lg shadow-md p-6 border border-[#C67C48]">
                   {item.type === 'collection' ? (
-                    <CollectionCard collection={item} />
+                    <CollectionCard collection={item} ratingsMap={ratingsMap} />
                   ) : (
-                    <StoryCard story={item} />
+                    <StoryCard story={item} ratingsMap={ratingsMap} />
                   )}
                 </div>
               ))}
@@ -88,7 +131,7 @@ export default async function SellerProfilePage({ params }: Props) {
   }
 }
 
-function CollectionCard({ collection }: { collection: any }) {
+function CollectionCard({ collection, ratingsMap }: { collection: any; ratingsMap: Record<string, { avgRating: number; reviewCount: number }> }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
@@ -115,6 +158,7 @@ function CollectionCard({ collection }: { collection: any }) {
                 )}
                 <div className="p-2">
                   <h3 className="font-semibold text-xs text-[#3E3E3E] line-clamp-2">{product.title}</h3>
+                  <Stars id={String(product._id)} ratingsMap={ratingsMap} small />
                   <p className="text-[#C67C48] font-bold text-xs">${product.price.toFixed(2)}</p>
                 </div>
               </div>
@@ -128,7 +172,7 @@ function CollectionCard({ collection }: { collection: any }) {
   );
 }
 
-function StoryCard({ story }: { story: any }) {
+function StoryCard({ story, ratingsMap }: { story: any; ratingsMap: Record<string, { avgRating: number; reviewCount: number }> }) {
   return (
     <div>
       {story.productId && (
@@ -157,6 +201,7 @@ function StoryCard({ story }: { story: any }) {
               )}
               <div className="p-3 flex-1 flex flex-col justify-end">
                 <h3 className="font-semibold mb-1 text-sm text-[#3E3E3E]">{story.productId.title}</h3>
+                <Stars id={String(story.productId._id)} ratingsMap={ratingsMap} />
                 <p className="text-[#C67C48] font-bold text-sm">${story.productId.price.toFixed(2)}</p>
               </div>
             </div>
