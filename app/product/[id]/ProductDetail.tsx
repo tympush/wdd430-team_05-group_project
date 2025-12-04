@@ -17,6 +17,8 @@ type Product = {
   category?: string | null;
   createdAt: string;
   updatedAt: string;
+  avgRating?: number;
+  reviewCount?: number;
 };
 
 type Props = {
@@ -86,6 +88,30 @@ export default function ProductDetail({ product }: Props) {
         {/*Product Info*/}
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold text-[#3E3E3E] mb-4">{product.title}</h1>
+
+          {/* Star Rating */}
+          {product.reviewCount !== undefined && product.reviewCount > 0 && (
+            <div className="flex items-center gap-2 mb-4">
+              <div className="text-[#E0B251] text-lg">
+                {(() => {
+                  const rating = product.avgRating || 0;
+                  const fullStars = Math.floor(rating);
+                  const hasHalfStar = rating % 1 >= 0.5;
+                  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                  return (
+                    <>
+                      {"★".repeat(fullStars)}
+                      {hasHalfStar && "✩"}
+                      {"☆".repeat(emptyStars)}
+                    </>
+                  );
+                })()}
+              </div>
+              <span className="text-sm text-[#6E6E6E]">
+                {product.avgRating?.toFixed(1)} ({product.reviewCount})
+              </span>
+            </div>
+          )}
 
           <div className="mb-6">
             <span className="text-3xl font-bold text-[#C67C48]">${product.price}</span>

@@ -1,8 +1,10 @@
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
+import Review from "@/models/Review";
 import ProductDetail from "./ProductDetail";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
+import mongoose from "mongoose";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -33,6 +35,24 @@ export default async function ProductPage({ params }: Props) {
     redirect("/shop");
   }
 
+  // Fetch review aggregation
+  const productObjectId = typeof product._id === 'string' 
+    ? new mongoose.Types.ObjectId(product._id) 
+    : product._id;
+
+  const reviewStats = await Review.aggregate([
+    { $match: { productId: productObjectId } },
+    {
+      $group: {
+        _id: "$productId",
+        avgRating: { $avg: "$rating" },
+        reviewCount: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const stats = reviewStats[0] || { avgRating: 0, reviewCount: 0 };
+
   const serialized = {
     _id: product._id?.toString() || "",
     title: product.title || "",
@@ -43,6 +63,8 @@ export default async function ProductPage({ params }: Props) {
     category: product.category || null,
     createdAt: product.createdAt?.toISOString() || new Date().toISOString(),
     updatedAt: product.updatedAt?.toISOString() || new Date().toISOString(),
+    avgRating: stats.avgRating || 0,
+    reviewCount: stats.reviewCount || 0,
   };
 
   return (
