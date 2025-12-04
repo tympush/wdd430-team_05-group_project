@@ -4,34 +4,32 @@ import React, { useState } from "react";
 type Props = { seller?: string };
 
 const CATEGORIES = [
-  'Home Decor',
-  'Toys & Games',
   'Accessories',
-  'Jewelry',
-  'Clothing',
-  'Paintings & Drawings',
-  'Prints & Posters',
-  'Calligraphy & Lettering',
-  'Digital Downloads',
-  'Photography',
-  'Kitchen & Dining',
   'Bath & Beauty',
-  'Pets',
-  'Outdoor & Garden',
-  'Holiday & Seasonal',
+  'Calligraphy & Lettering',
+  'Clothing',
+  'Digital Downloads',
   'Furniture & Woodworking',
+  'Home Decor',
+  'Holiday & Seasonal',
+  'Jewelry',
+  'Kitchen & Dining',
+  'Outdoor & Garden',
+  'Paintings & Drawings',
+  'Pets',
+  'Photography',
+  'Prints & Posters',
   'Personalized & Custom',
-  'Other',
+  'Toys & Games',
+  'Other'
 ];
-
-const SORTED_CATEGORIES = [...CATEGORIES].sort((a, b) => a.localeCompare(b));
 
 export default function AdminProductForm({ seller }: Props) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState<number | "">("");
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<string>(SORTED_CATEGORIES[0]);
+  const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [status, setStatus] = useState<string | null>(null);
 
   async function uploadFile(fileToUpload: File) {
@@ -136,7 +134,7 @@ export default function AdminProductForm({ seller }: Props) {
       <label className="block mb-2">
         <span className="text-sm">Category</span>
         <select value={category} onChange={(e) => setCategory(e.target.value)} className="mt-1 block w-full border rounded px-3 py-2">
-          {SORTED_CATEGORIES.map((c) => (
+          {CATEGORIES.map((c) => (
             <option key={c} value={c}>{c}</option>
           ))}
         </select>
