@@ -38,7 +38,7 @@ export default async function BuyPage({ params }: Props) {
     <main className="mt-16 py-8 bg-[#F8F5F1]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-2xl font-bold mb-6">Purchase — {serialized.title}</h1>
-        {/* Client-side form expects product and user props */}
+        {/*Client-side form expects product and user props*/}
         <BuyClient product={serialized} user={user} />
       </div>
     </main>

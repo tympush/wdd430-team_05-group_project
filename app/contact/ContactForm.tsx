@@ -75,7 +75,7 @@ export default function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6 bg-[#F5EFE6] p-6 rounded-lg border border-[#C67C48]">
-          {/* Name Field */}
+          {/*Name Field*/}
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Full Name *
@@ -93,7 +93,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Email Field */}
+          {/*Email Field*/}
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Email Address *
@@ -111,7 +111,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Subject Field */}
+          {/*Subject Field*/}
           <div>
             <label htmlFor="subject" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Subject *
@@ -129,7 +129,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Message Field */}
+          {/*Message Field*/}
           <div>
             <label htmlFor="message" className="block text-sm font-medium mb-2 text-[#3E3E3E]">
               Message *
@@ -147,7 +147,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Submit Button */}
+          {/*Submit Button*/}
           <button
             type="submit"
             disabled={loading}

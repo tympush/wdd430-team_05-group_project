@@ -23,13 +23,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" className={poppins.variable}>
       <body className="antialiased bg-color-background text-color-foreground font-sans">
         <SessionProvider>
-          {/* Navbar visible on every page */}
+          {/*Navbar visible on every page*/}
           <Navbar />
 
-          {/* Main: offset to avoid being hidden under fixed navbar */}
+          {/*Main: offset to avoid being hidden under fixed navbar*/}
           <main className="mt-16">{children}</main>
 
-          {/* Footer visible on every page */}
+          {/*Footer visible on every page*/}
           <Footer />
         </SessionProvider>
       </body>

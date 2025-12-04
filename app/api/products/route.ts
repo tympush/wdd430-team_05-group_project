@@ -14,9 +14,9 @@ export async function GET(request: Request) {
     const category = url.searchParams.get("category") ?? undefined;
     const minPrice = url.searchParams.get("minPrice") ? Number(url.searchParams.get("minPrice")) : undefined;
     const maxPrice = url.searchParams.get("maxPrice") ? Number(url.searchParams.get("maxPrice")) : undefined;
-    const sort = url.searchParams.get("sort") ?? undefined; // e.g. price_asc, price_desc, name_asc
+    const sort = url.searchParams.get("sort") ?? undefined;
 
-    // Return distinct sellers/categories when requested so the client can show all options
+    // return distinct sellers/categories when requested so the client can show all options
     if (distinct === "true") {
       const sellers = await Product.distinct("seller");
       const categories = await Product.distinct("category");

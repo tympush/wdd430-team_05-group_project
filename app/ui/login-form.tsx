@@ -82,7 +82,7 @@ export default function LoginForm({ currentUser }: Props) {
             <input id="password-register" name="password" type="password" minLength={6} className="block w-full rounded-md border border-[rgba(0,0,0,0.06)] py-[9px] pl-3 text-sm" required />
           </div>
 
-          {/* Hidden account_type unless creator is admin */}
+          {/*Hidden account_type unless creator is admin*/}
           {currentUser && currentUser.account_type === 'admin' ? (
             <div className="mt-4">
               <label className="mb-2 block text-xs font-medium" htmlFor="account_type">Account type</label>

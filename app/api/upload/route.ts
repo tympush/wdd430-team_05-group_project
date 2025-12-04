@@ -13,7 +13,7 @@ cloudinary.config({
  * Note: we use request.formData() (Web API).
  * We convert the File to base64 and upload it with cloudinary.uploader.upload.
  * This avoids using formidable and accessing `req`.
- */
+*/
 export async function POST(request: Request) {
   try {
     const contentType = request.headers.get("content-type") || "";

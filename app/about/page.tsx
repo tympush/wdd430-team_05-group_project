@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#F8F5F1]">
-      {/* Hero Section */}
+      {/*Hero Section*/}
       <section className="relative bg-linear-to-br from-[#C67C48] to-[#E0B251] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -18,7 +18,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/*Mission Section*/}
       <section className="py-16 bg-[#F5EFE6]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -54,14 +54,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/*Values Section*/}
       <section className="py-16 bg-[#F8F5F1]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#3E3E3E] mb-12">
             Our Core Values
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Value Card 1 */}
+            {/*Value Card 1*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#C67C48]">
               <div className="w-14 h-14 rounded-full bg-[#C67C48]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#C67C48]">🎨</span>
@@ -75,7 +75,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Value Card 2 */}
+            {/*Value Card 2*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#A6BBA1]">
               <div className="w-14 h-14 rounded-full bg-[#A6BBA1]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#A6BBA1]">🌱</span>
@@ -89,7 +89,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Value Card 3 */}
+            {/*Value Card 3*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#E0B251]">
               <div className="w-14 h-14 rounded-full bg-[#E0B251]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#E0B251]">🤝</span>
@@ -103,7 +103,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Value Card 4 */}
+            {/*Value Card 4*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#C67C48]">
               <div className="w-14 h-14 rounded-full bg-[#C67C48]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#C67C48]">✨</span>
@@ -117,7 +117,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Value Card 5 */}
+            {/*Value Card 5*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#A6BBA1]">
               <div className="w-14 h-14 rounded-full bg-[#A6BBA1]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#A6BBA1]">🌍</span>
@@ -131,7 +131,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Value Card 6 */}
+            {/*Value Card 6*/}
             <div className="bg-[#F5EFE6] p-8 rounded-2xl shadow-sm border border-[#E0B251]">
               <div className="w-14 h-14 rounded-full bg-[#E0B251]/10 flex items-center justify-center mb-4">
                 <span className="text-2xl text-[#E0B251]">💡</span>
@@ -148,7 +148,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/*Story Section*/}
       <section className="py-16 bg-[#F5EFE6]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -186,7 +186,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/*Team Section*/}
       <section className="py-16 bg-[#F8F5F1]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#3E3E3E] mb-4">
@@ -219,7 +219,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/*CTA Section*/}
       <section className="py-16 bg-linear-to-r from-[#C67C48] to-[#E0B251] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">

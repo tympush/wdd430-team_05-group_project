@@ -67,7 +67,7 @@ export default function ProductDetail({ product }: Props) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#F8F5F1]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        {/* Product Image */}
+        {/*Product Image*/}
         <div className="relative w-full h-96 bg-white rounded-lg overflow-hidden border border-[#E0B251]">
           {product.image ? (
             <Image
@@ -83,7 +83,7 @@ export default function ProductDetail({ product }: Props) {
           )}
         </div>
 
-        {/* Product Info */}
+        {/*Product Info*/}
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold text-[#3E3E3E] mb-4">{product.title}</h1>
 
@@ -107,7 +107,7 @@ export default function ProductDetail({ product }: Props) {
             </div>
           )}
 
-            {/* Purchase: go to dedicated buy page */}
+            {/*Purchase: go to dedicated buy page*/}
             <div className="mb-6">
               <a href={`/product/${product._id}/buy`} className="inline-block px-4 py-2 bg-amber-700 text-white rounded">Buy</a>
             </div>
@@ -119,7 +119,7 @@ export default function ProductDetail({ product }: Props) {
         </div>
       </div>
 
-      {/* Reviews Section */}
+      {/*Reviews Section*/}
       <div className="border-t border-[#C67C48] pt-8">
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-[#3E3E3E] mb-6">Reviews</h2>

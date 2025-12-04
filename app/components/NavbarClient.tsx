@@ -55,7 +55,7 @@ export default function NavbarClient({ user }: Props) {
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex gap-3">
-              {/* My Profile: only show to seller or admin */}
+              {/*My Profile: only show to seller or admin*/}
               {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
                 <Link
                   href="/my-profile"
@@ -67,7 +67,7 @@ export default function NavbarClient({ user }: Props) {
                 </Link>
               )}
 
-              {/* Sell: only show to seller or admin */}
+              {/*Sell: only show to seller or admin*/}
               {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
                 <Link
                   href="/sell"
@@ -79,7 +79,7 @@ export default function NavbarClient({ user }: Props) {
                 </Link>
               )}
 
-              {/* Manage: visible only to admins */}
+              {/*Manage: visible only to admins*/}
               {user && user.account_type === 'admin' && (
                 <Link 
                   href="/manage" 
@@ -141,7 +141,7 @@ export default function NavbarClient({ user }: Props) {
           ))}
 
           <div className="pt-2 border-t border-gray-100 space-y-2 flex flex-col">
-            {/* My Profile: only show to seller or admin */}
+            {/*My Profile: only show to seller or admin*/}
             {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
               <Link
                 href="/my-profile"
@@ -153,7 +153,7 @@ export default function NavbarClient({ user }: Props) {
               </Link>
             )}
 
-            {/* Sell: only show to seller or admin */}
+            {/*Sell: only show to seller or admin*/}
             {user && (user.account_type === 'seller' || user.account_type === 'admin') && (
               <Link
                 href="/sell"
@@ -165,7 +165,7 @@ export default function NavbarClient({ user }: Props) {
               </Link>
             )}
 
-            {/* Manage: visible only to admins */}
+            {/*Manage: visible only to admins*/}
             {user && user.account_type === 'admin' && (
               <Link 
                 href="/manage" 

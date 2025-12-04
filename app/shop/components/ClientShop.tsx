@@ -143,7 +143,7 @@ export default function ClientShop({
   return (
     <section>
       <div className="mb-4">
-        {/* Row 1: Search (large) + Sort (right) */}
+        {/*Row 1: Search (large) + Sort (right)*/}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
           <div className="flex-1 w-full">
             <label htmlFor="shop-search" className="sr-only">Search products</label>
@@ -183,7 +183,7 @@ export default function ClientShop({
           </div>
         </div>
 
-        {/* Row 2: Filters */}
+        {/*Row 2: Filters*/}
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label className="block text-sm">Seller</label>

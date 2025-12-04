@@ -46,7 +46,7 @@ export default async function SellerProfilePage({ params }: Props) {
     return (
       <div className="min-h-screen bg-[#F8F5F1] pt-24">
         <div className="max-w-6xl mx-auto px-4 py-8">
-          {/* Seller Header */}
+          {/*Seller Header*/}
           <div className="bg-[#F5EFE6] rounded-lg shadow-md p-6 mb-8 border border-[#C67C48]">
             <h1 className="text-4xl font-bold mb-2 text-[#3E3E3E]">{username}</h1>
             <p className="text-[#6E6E6E]">{seller.email}</p>
@@ -55,7 +55,7 @@ export default async function SellerProfilePage({ params }: Props) {
             </Link>
           </div>
 
-          {/* Collections & Stories */}
+          {/*Collections & Stories*/}
           {merged.length === 0 ? (
             <div className="bg-[#F5EFE6] rounded-lg shadow-md p-8 text-center border border-[#E0B251]">
               <p className="text-[#6E6E6E]">This creator hasn't shared any collections or stories yet.</p>
