@@ -5,10 +5,9 @@ import Review from "@/models/Review";
 
 export default async function FeaturedProducts({ limit = 6 }: { limit?: number }) {
   await dbConnect();
-  const products = await Product.find({})
-    .sort({ createdAt: -1 })
-    .limit(limit)
-    .lean();
+  const products = await Product.aggregate([
+    { $sample: { size: limit } }
+  ]);
 
   const productIds = products.map((p) => p._id);
   let ratingsMap: Record<string, { avgRating: number; reviewCount: number }> = {};
