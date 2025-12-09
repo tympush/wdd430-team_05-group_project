@@ -20,3 +20,8 @@ export async function authenticate(prevState: string | undefined, formData: Form
     throw error;
   }
 }
+
+export async function signOutAction() {
+  const { signOut } = await import('@/auth');
+  await signOut({ redirectTo: '/' });
+}

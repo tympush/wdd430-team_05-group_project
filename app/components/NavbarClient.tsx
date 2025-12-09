@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { User } from 'next-auth';
-import signOutAction from '@/app/actions/signout';
+import { signOutAction } from '@/app/lib/actions';
 
 type Props = { user: any };
 
