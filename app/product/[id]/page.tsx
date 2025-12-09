@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import Review from "@/models/Review";
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "@/app/components/ProductDetail";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import mongoose from "mongoose";

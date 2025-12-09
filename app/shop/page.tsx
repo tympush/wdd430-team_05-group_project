@@ -1,4 +1,4 @@
-import ClientShop from "./components/ClientShop";
+import ClientShop from "@/app/components/ClientShop";
 import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import Review from "@/models/Review";

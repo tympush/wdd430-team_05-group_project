@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import dbConnect from '@/lib/mongoose';
 import User from '@/models/User';
-import ManageUsersClient from './ManageUsersClient';
+import ManageUsersClient from '@/app/components/ManageUsersClient';
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

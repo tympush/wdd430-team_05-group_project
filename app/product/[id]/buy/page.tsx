@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/mongoose';
 import Product from '@/models/Product';
 import { auth } from '@/auth';
-import BuyClient from './BuyClient';
+import BuyClient from '@/app/components/BuyClient';
 import { redirect } from 'next/navigation';
 import { Metadata } from "next";
 

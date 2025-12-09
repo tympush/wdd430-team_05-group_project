@@ -2,7 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import dbConnect from '@/lib/mongoose';
 import Product from '@/models/Product';
-import CreateStoryClient from './CreateStoryClient';
+import CreateStoryClient from '@/app/components/CreateStoryClient';
 
 export default async function CreateStoryPage() {
   const session = await auth();

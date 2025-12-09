@@ -2,7 +2,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import dbConnect from '@/lib/mongoose';
 import Product from '@/models/Product';
-import CreateCollectionClient from './CreateCollectionClient';
+import CreateCollectionClient from '@/app/components/CreateCollectionClient';
 
 export default async function CreateCollectionPage() {
   const session = await auth();
