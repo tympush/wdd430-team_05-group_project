@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
-import LoginForm from '../ui/login-form';
+import RegisterForm from '@/app/components/RegisterForm';
 import { auth } from '@/auth';
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login"
+  title: "Register"
 };
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
   const session = await auth();
 
   return (
@@ -16,13 +16,11 @@ export default async function LoginPage() {
         <div className="flex h-20 w-full items-end rounded-lg bg-[var(--color-primary)] p-3 md:h-36">
           <div className="w-32 text-white md:w-36">
             <span className="sr-only">Handcrafted Haven</span>
-            {/*Replace with logo component if available*/}
             <div className="text-white font-bold">Handcrafted Haven</div>
           </div>
         </div>
         <Suspense>
-          {/*LoginForm is a client component (uses useActionState)*/}
-          <LoginForm currentUser={session?.user ?? null} />
+          <RegisterForm currentUser={session?.user ?? null} />
         </Suspense>
       </div>
     </main>
