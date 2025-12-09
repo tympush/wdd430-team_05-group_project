@@ -21,12 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!seller || (seller.account_type !== 'seller' && seller.account_type !== 'admin')) {
     return {
-      title: 'Creator Not Found |',
+      title: 'Creator Not Found',
     };
   }
 
   return {
-    title: `${username} |`,
+    title: `${username}`,
   };
 }
 
