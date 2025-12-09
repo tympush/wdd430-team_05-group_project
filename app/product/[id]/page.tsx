@@ -16,8 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await Product.findById(id).lean();
 
   return {
-    title: product ? `${product.title} — Handcrafted Haven` : "Product — Handcrafted Haven",
-    description: product?.description || "View product details",
+    title: product ? `${product.title}` : "Product — Handcrafted Haven",
   };
 }
 

@@ -6,10 +6,29 @@ import Review from '@/models/Review';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ username: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username: rawUsername } = await params;
+  const username = decodeURIComponent(rawUsername);
+
+  await dbConnect();
+  const seller = await User.findOne({ username }).lean();
+
+  if (!seller || (seller.account_type !== 'seller' && seller.account_type !== 'admin')) {
+    return {
+      title: 'Creator Not Found |',
+    };
+  }
+
+  return {
+    title: `${username} |`,
+  };
+}
 
 function Stars({ id, ratingsMap, small = false }: { id: string; ratingsMap: Record<string, { avgRating: number; reviewCount: number }>; small?: boolean }) {
   const r = ratingsMap[String(id)]?.avgRating ?? 0;
