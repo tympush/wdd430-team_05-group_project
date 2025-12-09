@@ -3,6 +3,11 @@ import dbConnect from "@/lib/mongoose";
 import Product from "@/models/Product";
 import Review from "@/models/Review";
 import mongoose from "mongoose";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Shop"
+};
 
 type SerializedProduct = {
   _id: string;

@@ -3,6 +3,11 @@ import User from '@/models/User';
 import Collection from '@/models/Collection';
 import Story from '@/models/Story';
 import Link from 'next/link';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Creators"
+};
 
 export default async function CreatorsPage() {
   try {

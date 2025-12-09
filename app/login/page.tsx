@@ -1,6 +1,11 @@
 import { Suspense } from 'react';
 import LoginForm from '../ui/login-form';
 import { auth } from '@/auth';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login"
+};
 
 export default async function LoginPage() {
   const session = await auth();

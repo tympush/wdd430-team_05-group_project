@@ -1,6 +1,11 @@
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Profile"
+};
 
 export default async function MyProfilePage() {
   const session = await auth();

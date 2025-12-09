@@ -3,6 +3,11 @@ import { auth } from '@/auth';
 import dbConnect from '@/lib/mongoose';
 import User from '@/models/User';
 import ManageUsersClient from './ManageUsersClient';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Management"
+};
 
 export default async function ManagePage() {
   const session = await auth();

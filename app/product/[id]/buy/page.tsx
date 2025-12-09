@@ -3,6 +3,11 @@ import Product from '@/models/Product';
 import { auth } from '@/auth';
 import BuyClient from './BuyClient';
 import { redirect } from 'next/navigation';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Purchase"
+};
 
 type Props = { params: Promise<{ id: string }> };
 

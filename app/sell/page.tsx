@@ -4,8 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: "Sell — Handcrafted Haven",
-  description: "Create a new product to sell on Handcrafted Haven",
+  title: "Sell",
 };
 
 export default async function SellPage() {
