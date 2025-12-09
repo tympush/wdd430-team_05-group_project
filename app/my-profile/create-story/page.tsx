@@ -3,6 +3,11 @@ import { redirect } from 'next/navigation';
 import dbConnect from '@/lib/mongoose';
 import Product from '@/models/Product';
 import CreateStoryClient from '@/app/components/CreateStoryClient';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create Story"
+};
 
 export default async function CreateStoryPage() {
   const session = await auth();
