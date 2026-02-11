@@ -1,3 +1,8 @@
+# ⚠️ Archived - Moved to Monorepo
+
+This project is now part of the [BYU-Pathway Coursework](https://github.com/Nehiz/byu-pathway-coursework) monorepo.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
